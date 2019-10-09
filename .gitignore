@@ -1,0 +1,12 @@
+# Ignore all node_modules
+node_modules
+
+# NPM errors
+npm-debug.log
+
+# OSX
+.DS_Store
+
+#package-lock
+package-lock.json
+
