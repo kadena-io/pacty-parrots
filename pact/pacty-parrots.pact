@@ -1,7 +1,9 @@
+(namespace "user")
 (module pacty-parrots GOVERNANCE
 
   (defcap GOVERNANCE ()
-    (enforce-guard (at 'guard (coin.account-info 'contract-admins))))
+    (enforce-guard (at 'guard (details 'contract-admins))))
+
 
   (use coin)
   ; --------------------------------------------------------------------------
@@ -72,9 +74,10 @@
   (defun parrots-guard:guard () (create-module-guard 'parrots-admin))
   (defcap BET (account)
     "ensures only account holder is making the bets"
-    (let ((g (at "guard" (account-info account))))
+    (let ((g (at "guard" (details account))))
       (enforce-guard g)
     )
+    ;true
   )
   ; --------------------------------------------------------------------------
   ; PACTY PARROTS CONTRACT -- main functions
@@ -257,7 +260,7 @@
 
 
 
-(create-table user-games-table)
+;(create-table user-games-table)
 ;this can be done post deploy
 ;  by reading the guard from the coin contract
-;(transfer-and-create "croesus" PARROTS_ACCOUNT (parrots-guard) 1000000.0)
+;(transfer-create "contract-admins" PARROTS_ACCOUNT (parrots-guard) 1000000.0)

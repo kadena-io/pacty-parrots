@@ -130,7 +130,7 @@ const Rules = (props) => {
         style={{ display: "flex", justifyContent: "center"}}
       >
         <Typography style={{ fontWeight: "bold", color: "#19a33c", fontSize: 20, marginTop: 5 }}>
-          Prize: Total Points scored in round minus entry fee
+          Prize: Total Points scored in each round minus entry fee
         </Typography>
       </Box>
       <Box
@@ -151,14 +151,14 @@ const Rules = (props) => {
         style={{ display: "flex", justifyContent: "center"}}
       >
         <Typography style={{ fontWeight: "bold", color: "red", fontSize: 20, marginTop: 5 }}>
-          but you loose all your coins for that round if one of the two parrots is a cop or a pirate
+          but you lose all your coins for that round if one of the two parrots is a cop or a pirate
         </Typography>
       </Box>
       <Box
         style={{ display: "flex", justifyContent: "center"}}
       >
         <Typography style={{ fontWeight: "bold", color: "red", fontSize: 20, marginTop: 5 }}>
-           .......are you gonna risk it for the parrot biscuit?
+           try you luck and have fun with Pacty Parrots!!
         </Typography>
       </Box>
       <Box style={{ padding: 50 }}>
@@ -197,7 +197,7 @@ const Rules = (props) => {
         variant="contained"
         color="primary"
         className={classes.playRoundButton}
-        style={{marginBottom: 60}}
+        style={{marginBottom: 20}}
         onClick={() => {
           props.anchorEl(null);
         }}
@@ -209,7 +209,7 @@ const Rules = (props) => {
         variant="contained"
         color="primary"
         className={classes.playRoundButton}
-        style={{marginBottom: 60}}
+        style={{marginBottom: 20}}
         onClick={() => {
           modalContext.setModalOpen(<LoginModal />);
         }}
@@ -217,6 +217,15 @@ const Rules = (props) => {
         ENTER ACCOUNT NAME
       </Button>
     }
+      </Box>
+      <Box
+        style={{ display: "flex", justifyContent: "center"}}
+      >
+      <Typography
+        style={{ fontWeight: "bold", color: "black", fontSize: 15, marginBottom: 40}}
+      >
+        * this game is for entertainment purposes only
+      </Typography>
       </Box>
 
     </div>

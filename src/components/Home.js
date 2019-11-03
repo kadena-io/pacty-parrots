@@ -12,6 +12,8 @@ const REFRESH_TIME = 600;
 const hosts = ["eu2","us2","eu1","eu2","ap1","ap2"]
 const chainIds = ["0","1",'2',"3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"]
 const createAPIHost = (network, chainId) => `https://${network}.testnet.chainweb.com/chainweb/0.0/testnet02/chain/${chainId}/pact`
+const devNetUrl = (network, chainId) => `https://${network}.tn1.chainweb.com/chainweb/0.0/development/chain/${chainId}/pact`
+const devNetHosts = ["us1", "us2", "us3"]
 const imgMap = {
   "B": require("../assets/result/large/blue.png"),
   "G": require("../assets/result/large/green.png"),
@@ -176,6 +178,7 @@ const HomePage = () => {
       fetchPlayers();
       fetchPlayerData();
       fetchCurrentRound();
+      await pactContext.getAccountBalance();
     }
     hosts();
 
@@ -211,7 +214,7 @@ const HomePage = () => {
     }
     const reqKey = await pactContext.getReqKey();
     console.log(reqKey)
-    Pact.fetch.listen({ listen: reqKey }, createAPIHost(hosts[0],"0"))
+    Pact.fetch.listen({ listen: reqKey }, createAPIHost(pactContext.workingHosts[0], "0"))
       .then(res => {
         // console.log(res);
         if (res.status === "success") {
@@ -276,7 +279,7 @@ const HomePage = () => {
       const rounds = (playerData.length !== 0) ? playerData["rounds"] : [];
       const currRound = rounds[rounds.length - 1]
       console.log(currRound);
-      return currRound[0];
+      return currRound[0].slice(0,30);
     } else {
       return [];
     }
@@ -534,13 +537,13 @@ const HomePage = () => {
             height: window.innerHeight}}
           >
           {playerId ?
-          <Typography variant="h6" className={classes.leaderboardTypography}>
-            account: {playerId}
-          </Typography>
-          :
-          <Typography variant="h6" className={classes.leaderboardTypography}>
-            no account!
-          </Typography>
+            <Typography variant="h6" className={classes.leaderboardTypography} style={{ marginTop: 3 }}>
+              account: {pactContext.playerId} | balance: {pactContext.accountBalance}
+            </Typography>
+            :
+            <Typography variant="h6" className={classes.leaderboardTypography} style={{ marginTop: 3 }}>
+              no account!
+            </Typography>
         }
           {showContent() ?
             <Box className={classes.leaderboardBox}>
