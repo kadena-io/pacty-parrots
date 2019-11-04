@@ -5,6 +5,7 @@ follow all instructions [testnet portal](testnet.chainweb.com)
 it will involve:
   - downloading Chainweaver desktop wallet (macOS)
   - funding an account with our testnet [coin faucet](faucet.testnet.chainweb.com)
+  - make sure wallet is pointing to a testnet node (ex:`us1.testnet.chainweb.com`)
 
 ## Code specs:
   - pact code and corresponding .repl tests outlined in /pact directory
