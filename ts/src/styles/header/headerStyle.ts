@@ -1,49 +1,50 @@
-import { makeStyles } from '@mui/material/styles'
+import { AppStyleType } from '../../types';
 
-const styles = {
-    appBar: () => ({
+const styles: AppStyleType = {
+    appBar: {
         padding: '15px 60px',
-    }),
-    textTitle: () => ({
+    },
+    textTitle:{
         color: 'white',
         fontWeight: 'bold',
         fontSize: '50px',
         textAlign: 'center',
-    }),
-    iconSize: () => ({
+    },
+    iconSize:{
         height: '20px',
         width: '20px',
         marginRight: '10px',
-    }),
-    chip: () => ({
+    },
+    chip:{
         flexFlow: 'row-reverse',
-        marginRight: '20px',
-        root: {
+        backgroundColor: 'white !important',
+        ':hover': {
             backgroundColor: 'white !important',
-            '&:hover': {
-                backgroundColor: 'white !important',
-            },
         },
-    }),
-    kadena: () => ({
+        marginRight: '20px',
+    },
+    kadena:{
         width: '60px',
         marginTop: '10px',
-    }),
-    arrow: () => ({
+    },
+    arrow:{
         marginLeft: '10px',
         marginRight: '-10px',
-    }),
+    },
 
-    fab: () => ({
+    fab:{
         paddingLeft: '30px !important',
         paddingRight: '30px !important',
         backgroundColor: 'white',
         width: '100px',
         height: '30px',
-    }),
-    loginButton: () => ({
+    },
+    loginButton:{
         paddingRight: '40px',
-    }),
+    },
+    loginIconButton:{
+    }
 }
 
-export default makeStyles(styles)
+
+export default styles

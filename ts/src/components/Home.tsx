@@ -15,12 +15,12 @@ import { TodoType } from '../types'
 
 export default function Home() {
     const {
-        playRoundButton: playRoundButtonClass,
-        leaderboardTypography: leaderboardTypographyClass,
-        scoreStyle: scoreStyleClass,
-        gridDisplay: gridDisplayClass,
-        typographyStyle: typographyStyleClass,
-        leaderboardBox: leaderboardBoxClass,
+        playRoundButton: playRoundButtonStyle,
+        leaderboardTypography: leaderboardTypographyStyle,
+        scoreStyle,
+        gridDisplay: gridDisplayStyle,
+        typographyStyle,
+        leaderboardBox: leaderboardBoxStyle,
     } = styles
 
     const playerTable = usePactState((state) => state.playerTable)
@@ -58,7 +58,7 @@ export default function Home() {
           return "0"
         }
         else {
-            if (startDis && playerTable["rounds"][currentRound][2] === "open") {
+            if (startDis && playerTable["rounds"][currentRound] && playerTable["rounds"][currentRound][2] === "open") {
                 return playerTable["rounds"][currentRound][1]["int"]
             } else {
                 return '0'
@@ -86,16 +86,16 @@ export default function Home() {
             <Grid style={{ flex: 2 }}>
                 {showContent() ? (
                     <div>
-                        <Grid direction="row" className={gridDisplayClass}>
-                            <Box className={typographyStyleClass}>
+                        <Grid direction="row" style={gridDisplayStyle}>
+                            <Box style={typographyStyle}>
                                 <Typography>ROUNDS PLAYED:</Typography>
-                                <Typography variant="h4" className={scoreStyleClass}>
+                                <Typography variant="h4" style={scoreStyle}>
                                     {playerTable ? playerTable['rounds-played']['int'] : '0'}
                                 </Typography>
                             </Box>
-                            <Box className={typographyStyleClass}>
+                            <Box style={typographyStyle}>
                                 <Typography>TOTAL SCORE:</Typography>
-                                <Typography variant="h4" className={scoreStyleClass}>
+                                <Typography variant="h4" style={scoreStyle}>
                                     {playerTable
                                         ? playerTable['coins-out'] - playerTable['coins-in']
                                         : '0'}
@@ -134,8 +134,7 @@ export default function Home() {
                             </Grid>
                             <Typography
                                 variant="h4"
-                                className={scoreStyleClass}
-                                style={{ marginTop: 20 }}
+                                style={{ ...scoreStyle, marginTop: 20 }}
                             >
                                 {spinText}
                             </Typography>
@@ -147,7 +146,7 @@ export default function Home() {
                         </Grid>
                     </div>
                 ) : (
-                    <Typography variant="h4" className={scoreStyleClass} style={{ margin: 70 }}>
+                    <Typography variant="h4" style={{ ...scoreStyle, margin: 70 }}>
                         {playerId ? (
                             <div>connecting to an available node...</div>
                         ) : (
@@ -170,27 +169,27 @@ export default function Home() {
                     {playerId ? (
                         <Typography
                             variant="h6"
-                            className={leaderboardTypographyClass}
-                            style={{ marginTop: 3 }}
+                            
+                            style={{ ...leaderboardTypographyStyle, marginTop: 3 }}
                         >
                             account: {playerId} | balance: {accountBalance}
                         </Typography>
                     ) : (
                         <Typography
                             variant="h6"
-                            className={leaderboardTypographyClass}
-                            style={{ marginTop: 3 }}
+                            
+                            style={{ ...leaderboardTypographyStyle, marginTop: 3 }}
                         >
                             no account!
                         </Typography>
                     )}
                     {showContent() ? (
-                        <Box className={leaderboardBoxClass}>
+                        <Box style={leaderboardBoxStyle}>
                             <Results showRoundPoints={showRoundPoints}/>
                             <Typography
                                 variant="h4"
-                                className={leaderboardTypographyClass}
-                                style={{ marginTop: 30 }}
+                                
+                                style={{ ...leaderboardTypographyStyle, marginTop: 30 }}
                             >
                                 LEADERBOARD
                             </Typography>

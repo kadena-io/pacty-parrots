@@ -5,7 +5,9 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import HomePage from './pages/HomePage'
+import * as BufferPolyfill from 'buffer'
 
+window.Buffer = window.Buffer || BufferPolyfill.Buffer
 
 const router = createBrowserRouter([
     {

@@ -1,4 +1,4 @@
-import { AppBar, Box, Fab, Popover, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Fab, Popover, styled, Toolbar, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 import styles from '../styles/header/headerStyle'
@@ -20,12 +20,12 @@ interface Props {
 
 export default function Header({ title }: Props) {
     const {
-        appBar: appBarClass,
-        kadena: kadenaClass,
-        textTitle: textTitleClass,
-        loginButton: loginButtonClass,
-        fab: fabClass,
-        loginIconButton: loginIconButtonClass,
+        appBar: appBarStyle,
+        kadena: kadenaStyle,
+        textTitle: textTitleStyle,
+        loginButton: loginButtonStyle,
+        fab: fabStyle,
+        loginIconButton: loginIconButtonStyle,
     } = styles
 
     const [anchorEl, setAnchorEl] = useState(null)
@@ -42,20 +42,20 @@ export default function Header({ title }: Props) {
 
     return (
         <Box>
-            <AppBar position="static" className={appBarClass}>
+            <AppBar position="static" style={appBarStyle}>
                 <Toolbar>
                     <Link to="http://testnet.chainweb.com">
-                        <img src={kadenaLogo} alt="Kadena" className={kadenaClass} />
+                        <img src={kadenaLogo} alt="Kadena" style={kadenaStyle} />
                     </Link>
                     <Typography variant="h6" style={{ flexGrow: 1 }}>
-                        <Box className={textTitleClass}>{title}</Box>
+                        <Box style={textTitleStyle}>{title}</Box>
                     </Typography>
 
-                    <Box className={loginButtonClass}>
+                    <Box style={loginButtonStyle}>
                         <Fab
                             variant="extended"
                             size="medium"
-                            className={fabClass}
+                            style={fabStyle}
                             onClick={() => {
                                 //modalContext.setModalOpen(<LoginModal/>)
                             }}
@@ -72,12 +72,12 @@ export default function Header({ title }: Props) {
                         </Fab>
                     </Box>
 
-                    <Box className={loginIconButtonClass}>
+                    <Box style={loginIconButtonStyle}>
                         <Fab
                             aria-describedby={id}
                             variant="extended"
                             size="medium"
-                            className={fabClass}
+                            style={fabStyle}
                             onClick={handleClick}
                         >
                             <Typography

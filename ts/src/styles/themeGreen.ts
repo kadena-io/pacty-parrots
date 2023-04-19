@@ -1,9 +1,9 @@
 import { createTheme } from '@mui/material/styles'
 import { fontStyleNHaas } from './fontConfig'
+import backgroundImageUrl from '../assets/images/Background.png'
 
 export const greenPrimaryColor = '#19a33c'
 export const greenSecondaryColor = '#a6c600'
-import backgroundImageUrl from '../assets/images/Background.png'
 
 export const greenTheme = createTheme({
     palette: {

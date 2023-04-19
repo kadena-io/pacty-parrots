@@ -7,6 +7,7 @@ import { CssBaseline, Modal, ThemeProvider } from '@mui/material'
 import { useModalState } from './states/ModalState'
 import { modalStyle } from './const'
 
+
 function App() {
     const modalContent = useModalState((state) => state.content)
     const isModalOpen = useModalState((state) => state.isOpen)

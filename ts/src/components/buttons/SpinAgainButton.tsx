@@ -27,8 +27,7 @@ export default function SpinAgainButton({display, onClick}: Props){
         <Button
         variant="contained"
         color="primary"
-        className={playRoundButton}
-        style={{marginRight: 10}}
+        style={{...playRoundButton, marginRight: 10}}
         onClick={onClick}
         >
           SPIN AGAIN

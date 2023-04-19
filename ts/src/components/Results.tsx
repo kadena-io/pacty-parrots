@@ -13,11 +13,11 @@ export default function Results({
 }: Props) {
     const playerTable = usePactState(state => state.playerTable)
     const currentRound = usePactState(state => state.round) // - 1
-    const { leaderboardTypography: leaderboardTypographyClass, scoreStyle: scoreStyleClass } = styles;
+    const { leaderboardTypography: leaderboardTypographyStyle, scoreStyle } = styles;
     const payoutMatrix = usePactState(state => state.payoutMatrix)
 
     const filterCurrRound = (playerData: TodoType) => {
-        if (playerData && playerData["rounds"][currentRound][2] === "open") {
+        if (playerData && playerData["rounds"][currentRound] && playerData["rounds"][currentRound][2] === "open") {
           const rounds = (playerData.length !== 0) ? playerData["rounds"] : [];
           const currRound = rounds[rounds.length - 1]
           console.log(currRound);
@@ -28,9 +28,12 @@ export default function Results({
       }
 
     return (
-        playerTable['rounds'][currentRound][2] === "open" ? (
+        (
+          playerTable['rounds'][currentRound] &&
+          playerTable['rounds'][currentRound][2] === "open"
+          ) ? (
             <div>
-            <Typography variant="h4" className={leaderboardTypographyClass} style={{marginBottom:30}}>
+            <Typography variant="h4" style={{...leaderboardTypographyStyle, marginBottom:30}}>
           CURRENT ROUND
         </Typography>
         <ListView
@@ -65,7 +68,7 @@ export default function Results({
               
         })}
         />
-        <Typography variant="h4" className={scoreStyleClass} style={{color:'blue'}}>
+        <Typography variant="h4" style={{...scoreStyle, color:'blue'}}>
           Total Round Score: {showRoundPoints() - 5}
         </Typography>
         </div>

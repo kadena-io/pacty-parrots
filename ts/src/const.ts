@@ -1,3 +1,4 @@
+import './buffer-polyfill'
 import Pact from 'pact-lang-api'
 
 export const ROUND_TIMEOUT = 300000
@@ -161,5 +162,6 @@ export const modalStyle = {
     alignItems: 'center',
     zIndex: 99999,
 }
+
 
 export const dumKeyPair = Pact.crypto.genKeyPair()

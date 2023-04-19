@@ -109,7 +109,7 @@ export default function Rules({}: Props) {
     const pactContext = {
         playerId: true,
     }
-    const { playRoundButton: playRoundButtonClass } = styles
+    const { playRoundButton: playRoundButtonStyle } = styles
 
     return (
         <div style={{ width: window.innerWidth }}>
@@ -202,8 +202,7 @@ export default function Rules({}: Props) {
                     <Button
                         variant="contained"
                         color="primary"
-                        className={playRoundButtonClass}
-                        style={{ marginBottom: 20 }}
+                        style={{ ...playRoundButtonStyle, marginBottom: 20 }}
                         onClick={() => {
                             //props.anchorEl(null);
                         }}
@@ -214,8 +213,8 @@ export default function Rules({}: Props) {
                     <Button
                         variant="contained"
                         color="primary"
-                        className={playRoundButtonClass}
-                        style={{ marginBottom: 20 }}
+                        style={{ ...playRoundButtonStyle, marginBottom: 20 }}
+
                         onClick={() => {
                             //modalContext.setModalOpen(<LoginModal />);
                         }}

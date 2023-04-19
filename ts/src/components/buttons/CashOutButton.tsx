@@ -30,7 +30,7 @@ export default function CashOutButton({display, roundPoints, onClick}: Props) {
             <Button
             variant="contained"
             color="primary"
-            className={playRoundButton}
+            style={playRoundButton}
             onClick={onClick}
             >CASH OUT {roundPoints - 5} coins</Button>
         )

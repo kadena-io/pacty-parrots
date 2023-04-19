@@ -15,7 +15,7 @@ export default function LoginModal({}: Props) {
         modalTitle: modalTitleClass,
         enterAccountIdBox: enterAccountIdBoxClass,
         enterId: enterIdClass,
-    } = style()
+    } = style
 
     const onHandleClick = (event: any) => {
         if (value !== '') {

@@ -33,9 +33,8 @@ export default function StartButton({display, onClick}: Props) {
                 <Button
                 variant="contained"
                 color="primary"
-                className={playRoundButton}
                 disabled={display}
-                style={{marginRight: 10}}
+                style={{...playRoundButton, marginRight: 10}}
                 onClick={onClick}
                 >START NEW ROUND</Button>
             </div>

@@ -1,51 +1,51 @@
-import { makeStyles } from '@mui/material/styles'
+import { AppStyleType } from '../../types'
 import { greenPrimaryColor, greenSecondaryColor } from '../themeGreen'
 
-const styles = {
-    gridDisplay: () => ({
+const styles: AppStyleType = {
+    gridDisplay: {
         display: 'flex',
         justifyContent: 'space-around',
-    }),
-    typographyStyle: () => ({
+    },
+    typographyStyle: {
         backgroundColor: greenSecondaryColor,
         color: 'white',
         padding: '10px 15px',
         borderRadius: 4,
         display: 'flex',
         alignItems: 'center',
-    }),
-    scoreStyle: () => ({
+    },
+    scoreStyle: {
         textAlign: 'center',
         minWidth: 100,
         color: 'white',
         fontWeight: 'bold !important',
-    }),
-    enterId: () => ({
+    },
+    enterId: {
         fontWeight: 'bold !important',
         color: greenPrimaryColor,
         textAlign: 'center',
-    }),
-    playRoundButton: () => ({
+    },
+    playRoundButton: {
         fontWeight: 'bold !important',
         color: 'white',
         padding: '10px 20px !important',
-    }),
-    enterAccountIdBox: () => ({
+    },
+    enterAccountIdBox: {
         display: 'flex',
         flexDirection: 'column',
         padding: '20px 150px 30px 150px',
-    }),
-    leaderboardTypography: () => ({
+    },
+    leaderboardTypography: {
         color: greenPrimaryColor,
         fontWeight: 'bold !important',
         textAlign: 'center',
         marginBottom: '20px !important',
-    }),
-    leaderboardBox: () => ({
+    },
+    leaderboardBox: {
         marginBottom: 20,
         paddingLeft: '20px',
         paddingRight: '20px',
-    }),
+    },
 }
 
-export default makeStyles(styles)
+export default styles

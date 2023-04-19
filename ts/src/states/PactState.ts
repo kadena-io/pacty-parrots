@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { TodoType } from '../types'
+import { PlayerTableType, TodoType } from '../types'
 
 interface PactState {
     // values
     playerId: string
-    playerTable: TodoType
+    playerTable: PlayerTableType
     round: number
     players: TodoType[]
     playersData: TodoType[]
@@ -18,7 +18,7 @@ interface PactState {
     balance: number
     // setters
     setPlayerId: (playerId: string) => void
-    setPlayerTable: (playerTable: TodoType) => void
+    setPlayerTable: (playerTable: PlayerTableType) => void
     setRound: (round: number) => void
     setPlayers: (players: TodoType[]) => void
     setPlayersData: (playersData: TodoType[]) => void
@@ -34,7 +34,12 @@ export const usePactState = create<PactState>()(
     persist(
         (set) => ({
             playerId: '',
-            playerTable: {},
+            playerTable: {
+                rounds: [],
+                'rounds-played': [],
+                'coins-out': 0,
+                'coins-in': 0,
+            },
             round: 0,
             players: [],
             playersData: [],
