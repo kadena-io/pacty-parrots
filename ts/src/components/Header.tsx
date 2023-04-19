@@ -5,6 +5,10 @@ import styles from '../styles/header/headerStyle'
 
 import kadenaLogo from '../assets/images/logo_green.png'
 import { useState } from 'react'
+import Rules from './Rules'
+import { usePactState } from '../states/PactState'
+import { useModalState } from '../states/ModalState'
+import LoginModal from './LoginModal'
 
 interface Props {
     title: string
@@ -28,11 +32,18 @@ export default function Header({ title }: Props) {
         loginIconButton: loginIconButtonStyle,
     } = styles
 
+    const playerId = usePactState((state) => state.playerId)
+
     const [anchorEl, setAnchorEl] = useState(null)
 
-    const [open, setOpen] = useState(false)
+    const isRulesModalOpen = useModalState((state) => state.isRulesModalOpen)
+    const openRulesModal = useModalState((state) => state.openRulesModal)
+    const closeRulesModal = useModalState((state) => state.closeRulesModal)
 
-    const id = open ? 'simple-popover' : undefined
+    if (!playerId) {
+        openRulesModal()
+    }
+
     const handleClick = () => {
         console.log('handleClick')
     }
@@ -44,9 +55,9 @@ export default function Header({ title }: Props) {
         <Box>
             <AppBar position="static" style={appBarStyle}>
                 <Toolbar>
-                    <Link to="http://testnet.chainweb.com">
+                    <a href="http://testnet.chainweb.com">
                         <img src={kadenaLogo} alt="Kadena" style={kadenaStyle} />
-                    </Link>
+                    </a>
                     <Typography variant="h6" style={{ flexGrow: 1 }}>
                         <Box style={textTitleStyle}>{title}</Box>
                     </Typography>
@@ -74,7 +85,6 @@ export default function Header({ title }: Props) {
 
                     <Box style={loginIconButtonStyle}>
                         <Fab
-                            aria-describedby={id}
                             variant="extended"
                             size="medium"
                             style={fabStyle}
@@ -92,22 +102,8 @@ export default function Header({ title }: Props) {
                         </Fab>
                     </Box>
 
-                    <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                    >
-                        Rules component!
-                    </Popover>
+                    <LoginModal />
+                    <Rules />
                 </Toolbar>
             </AppBar>
         </Box>

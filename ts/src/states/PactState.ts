@@ -64,6 +64,7 @@ export const usePactState = create<PactState>()(
         {
             name: 'pact-state',
             partialize: (state) => ({
+                playerId: state.playerId,
                 requestKey: state.requestKey,
             }),
         }

@@ -1,21 +1,21 @@
-import { AppStyleType } from '../../types';
+import { AppStyleType } from '../../types'
 
 const styles: AppStyleType = {
     appBar: {
         padding: '15px 60px',
     },
-    textTitle:{
+    textTitle: {
         color: 'white',
         fontWeight: 'bold',
         fontSize: '50px',
         textAlign: 'center',
     },
-    iconSize:{
+    iconSize: {
         height: '20px',
         width: '20px',
         marginRight: '10px',
     },
-    chip:{
+    chip: {
         flexFlow: 'row-reverse',
         backgroundColor: 'white !important',
         ':hover': {
@@ -23,28 +23,26 @@ const styles: AppStyleType = {
         },
         marginRight: '20px',
     },
-    kadena:{
+    kadena: {
         width: '60px',
         marginTop: '10px',
     },
-    arrow:{
+    arrow: {
         marginLeft: '10px',
         marginRight: '-10px',
     },
 
-    fab:{
+    fab: {
         paddingLeft: '30px !important',
         paddingRight: '30px !important',
         backgroundColor: 'white',
         width: '100px',
         height: '30px',
     },
-    loginButton:{
+    loginButton: {
         paddingRight: '40px',
     },
-    loginIconButton:{
-    }
+    loginIconButton: {},
 }
-
 
 export default styles

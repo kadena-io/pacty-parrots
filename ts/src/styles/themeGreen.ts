@@ -30,104 +30,107 @@ export const greenTheme = createTheme({
     components: {
         MuiCssBaseline: {
             styleOverrides: {
-            '@global': {
-                '@font-face': [fontStyleNHaas],
-                body: {
-                    backgroundImage: `url(${backgroundImageUrl})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
+                '@global': {
+                    '@font-face': [fontStyleNHaas],
+                    body: {
+                        backgroundImage: `url(${backgroundImageUrl})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                    },
                 },
             },
-        }
         },
         MuiSelect: {
             styleOverrides: {
                 select: {
                     color: 'white',
                 },
-            }
+            },
         },
         MuiMenuItem: {
             styleOverrides: {
-            root: {
-                '&$selected': {
-                    backgroundColor: greenSecondaryColor,
+                root: {
+                    '&$selected': {
+                        backgroundColor: greenSecondaryColor,
+                    },
+                    '&:hover': {
+                        backgroundColor: greenSecondaryColor,
+                    },
+                    color: 'white',
+                    // backgroundColor: 'red'
                 },
-                '&:hover': {
-                    backgroundColor: greenSecondaryColor,
-                },
-                color: 'white',
-                // backgroundColor: 'red'
-            },}
+            },
         },
         MuiList: {
             styleOverrides: {
-            root: {
-                backgroundColor: greenPrimaryColor,
-            },}
+                root: {
+                    backgroundColor: greenPrimaryColor,
+                },
+            },
         },
         MuiFormLabel: {
             styleOverrides: {
-            root: {
-                color: 'white',
-                '&$focused': {
+                root: {
                     color: 'white',
+                    '&$focused': {
+                        color: 'white',
+                    },
                 },
-            },}
+            },
         },
         MuiInput: {
             styleOverrides: {
-            underline: {
-                '&:before': {
-                    borderBottomColor: 'white',
+                underline: {
+                    '&:before': {
+                        borderBottomColor: 'white',
+                    },
+                    '&:after': {
+                        borderBottomColor: 'white',
+                    },
+                    '&:hover:not($disabled):not($focused):not($error):before': {
+                        borderBottomColor: 'white',
+                    },
                 },
-                '&:after': {
-                    borderBottomColor: 'white',
-                },
-                '&:hover:not($disabled):not($focused):not($error):before': {
-                    borderBottomColor: 'white',
+                input: {
+                    color: 'white',
                 },
             },
-            input: {
-                color: 'white',
-            },}
         },
         MuiTextField: {
             styleOverrides: {
-            root: {
-                '&.blackInput .MuiFormLabel-root': {
-                    color: 'black',
+                root: {
+                    '&.blackInput .MuiFormLabel-root': {
+                        color: 'black',
+                    },
+                    '&.blackInput .MuiInputBase-root input': {
+                        color: 'black',
+                    },
+                    '&.blackInput .MuiInput-underline:before': {
+                        borderBottomColor: 'black',
+                    },
+                    '&.blackInput .MuiInput-underline:after': {
+                        borderBottomColor: 'black',
+                    },
                 },
-                '&.blackInput .MuiInputBase-root input': {
-                    color: 'black',
-                },
-                '&.blackInput .MuiInput-underline:before': {
-                    borderBottomColor: 'black',
-                },
-                '&.blackInput .MuiInput-underline:after': {
-                    borderBottomColor: 'black',
-                },
-            },}
+            },
         },
         MuiChip: {
             styleOverrides: {
-            root: {
-                '&.headerChip': {
-                    backgroundColor: 'white !important',
+                root: {
+                    '&.headerChip': {
+                        backgroundColor: 'white !important',
+                    },
                 },
-            },}
+            },
         },
         MuiButtonBase: {
             styleOverrides: {
-            root: {
-                '& a': {
-                    textDecoration: 'none',
+                root: {
+                    '& a': {
+                        textDecoration: 'none',
+                    },
                 },
-            },}
+            },
         },
     },
-    
-        
-        
-    
 })

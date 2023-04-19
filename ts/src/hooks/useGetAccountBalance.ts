@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import Pact from 'pact-lang-api'
-import { createAPIHost, dumKeyPair } from '../const'
+import { createAPIHost, dumKeyPair, FetchPactLocal } from '../const'
 import { usePactState } from '../states/PactState'
 
 export default function useGetAccountBalance() {
@@ -9,12 +9,12 @@ export default function useGetAccountBalance() {
     const setAccountBalance = usePactState((state) => state.setAccountBalance)
 
     return useCallback(async () => {
-        const cmd = await Pact.fetch.local(
+        const cmd = await FetchPactLocal(
             {
                 pactCode: `(coin.get-balance ${JSON.stringify(playerId)})`,
                 keyPairs: dumKeyPair,
             },
-            createAPIHost(workingHosts[0], '0')
+            '1'
         )
         const data = await cmd.data
         let balance = '0'
@@ -25,7 +25,6 @@ export default function useGetAccountBalance() {
                 balance = data
             }
         }
-
         setAccountBalance(parseFloat(balance))
     }, [playerId, workingHosts])
 }

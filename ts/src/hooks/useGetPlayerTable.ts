@@ -18,8 +18,9 @@ export default function useGetPlayerTable() {
         // .then(res => {
         //   this.setState({ playerTable: res.data })
         // })
+        console.log({ cmd })
         const data = await cmd.data
-        console.log(data)
+        console.log('player data', data)
         setPlayerTable(data)
     }, [playerId, workingHosts])
 }

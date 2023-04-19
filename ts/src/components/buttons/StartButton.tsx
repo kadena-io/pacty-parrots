@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Button } from '@mui/material'
 import styles from '../../styles/home/homeStyle'
 
 interface Props {
@@ -25,20 +25,21 @@ interface Props {
               handlePlayRound("start")
               */
 
-export default function StartButton({display, onClick}: Props) {
-    const {playRoundButton} = styles;
-    return (
-        display ? <div></div> : (
-            <div>
-                <Button
+export default function StartButton({ display, onClick }: Props) {
+    const { playRoundButton } = styles
+    return display ? (
+        <div></div>
+    ) : (
+        <div>
+            <Button
                 variant="contained"
                 color="primary"
                 disabled={display}
-                style={{...playRoundButton, marginRight: 10}}
+                style={{ ...playRoundButton, marginRight: 10 }}
                 onClick={onClick}
-                >START NEW ROUND</Button>
-            </div>
-        )
+            >
+                START NEW ROUND
+            </Button>
+        </div>
     )
 }
-

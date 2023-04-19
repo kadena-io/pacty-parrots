@@ -4,7 +4,7 @@ import { greenPrimaryColor } from '../styles/themeGreen'
 import { Fragment } from 'react'
 
 export interface ListViewColumn {
-    key: string,
+    key: string
     label: string
 }
 // TODO: give a proper type to items
@@ -22,7 +22,7 @@ export default function ListView({
     headerBackgroundColor,
     columns,
     items,
-    style
+    style,
 }: Props) {
     const theme = useTheme()
 

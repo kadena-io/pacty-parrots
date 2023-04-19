@@ -1,9 +1,9 @@
-import { Button } from "@mui/material"
+import { Button } from '@mui/material'
 import styles from '../../styles/home/homeStyle'
 
 interface Props {
-  display: boolean 
-  onClick?: () => void
+    display: boolean
+    onClick?: () => void
 }
 
 /* original onClick 
@@ -18,21 +18,21 @@ interface Props {
           }}
 
           */
-export default function SpinAgainButton({display, onClick}: Props){
-  const {playRoundButton} = styles;
+export default function SpinAgainButton({ display, onClick }: Props) {
+    const { playRoundButton } = styles
 
-  return (
-    display ? <div></div> : (
-      <div>
-        <Button
-        variant="contained"
-        color="primary"
-        style={{...playRoundButton, marginRight: 10}}
-        onClick={onClick}
-        >
-          SPIN AGAIN
-        </Button>
-      </div>
+    return display ? (
+        <div></div>
+    ) : (
+        <div>
+            <Button
+                variant="contained"
+                color="primary"
+                style={{ ...playRoundButton, marginRight: 10 }}
+                onClick={onClick}
+            >
+                SPIN AGAIN
+            </Button>
+        </div>
     )
-  )
 }

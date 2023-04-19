@@ -9,18 +9,9 @@ import * as BufferPolyfill from 'buffer'
 
 window.Buffer = window.Buffer || BufferPolyfill.Buffer
 
-const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomePage/>,
-    },
-  ]);
-
-  
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
         <App />
     </React.StrictMode>
 )

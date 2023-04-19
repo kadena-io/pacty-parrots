@@ -1,6 +1,6 @@
-import { Button } from "@mui/material"
+import { Button } from '@mui/material'
 import styles from '../../styles/home/homeStyle'
-import { usePactState } from "../../states/PactState"
+import { usePactState } from '../../states/PactState'
 
 interface Props {
     display: boolean
@@ -20,19 +20,14 @@ onClick={async () => {
             // handleEndRound()
           }}
           */
-export default function CashOutButton({display, roundPoints, onClick}: Props) {
-    const {playRoundButton} = styles;
+export default function CashOutButton({ display, roundPoints, onClick }: Props) {
+    const { playRoundButton } = styles
 
-    
-
-    return (
-        display? <div></div> : (
-            <Button
-            variant="contained"
-            color="primary"
-            style={playRoundButton}
-            onClick={onClick}
-            >CASH OUT {roundPoints - 5} coins</Button>
-        )
+    return display ? (
+        <div></div>
+    ) : (
+        <Button variant="contained" color="primary" style={playRoundButton} onClick={onClick}>
+            CASH OUT {roundPoints - 5} coins
+        </Button>
     )
 }

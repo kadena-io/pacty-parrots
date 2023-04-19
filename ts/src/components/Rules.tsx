@@ -1,10 +1,10 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Dialog, Modal, Typography } from '@mui/material'
+import { useModalState } from '../states/ModalState'
+import { usePactState } from '../states/PactState'
 import styles from '../styles/home/homeStyle'
 import ListView from './ListView'
 
-interface Props {
-    anchorEl: HTMLElement | null
-}
+interface Props {}
 
 const info: {
     value: string
@@ -106,13 +106,18 @@ const info: {
 
 export default function Rules({}: Props) {
     // replace with actual values
-    const pactContext = {
-        playerId: true,
-    }
+    const playerId = usePactState((state) => state.playerId)
+
     const { playRoundButton: playRoundButtonStyle } = styles
 
+    const isRulesModalOpen = useModalState((state) => state.isRulesModalOpen)
+    const openRulesModal = useModalState((state) => state.openRulesModal)
+    const closeRulesModal = useModalState((state) => state.closeRulesModal)
+
+    const openLoginModal = useModalState((state) => state.openLoginModal)
+
     return (
-        <div style={{ width: window.innerWidth }}>
+        <Dialog open={isRulesModalOpen} maxWidth="xl" style={{ width: '100%' }} scroll="paper">
             <Box style={{ display: 'flex', justifyContent: 'center' }}>
                 <Typography
                     style={{ fontWeight: 'bold', color: 'black', fontSize: 50, marginTop: 50 }}
@@ -198,7 +203,7 @@ export default function Rules({}: Props) {
                 />
             </Box>
             <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                {pactContext.playerId ? (
+                {playerId ? (
                     <Button
                         variant="contained"
                         color="primary"
@@ -214,8 +219,8 @@ export default function Rules({}: Props) {
                         variant="contained"
                         color="primary"
                         style={{ ...playRoundButtonStyle, marginBottom: 20 }}
-
                         onClick={() => {
+                            openLoginModal()
                             //modalContext.setModalOpen(<LoginModal />);
                         }}
                     >
@@ -230,6 +235,6 @@ export default function Rules({}: Props) {
                     * this game is for entertainment purposes only
                 </Typography>
             </Box>
-        </div>
+        </Dialog>
     )
 }
