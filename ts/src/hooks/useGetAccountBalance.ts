@@ -6,6 +6,7 @@ import { usePactState } from '../states/PactState'
 export default function useGetAccountBalance() {
     const playerId = usePactState((state) => state.playerId)
     const workingHosts = usePactState((state) => state.workingHosts)
+    const setAccountBalance = usePactState((state) => state.setAccountBalance)
 
     return useCallback(async () => {
         const cmd = await Pact.fetch.local(
@@ -24,5 +25,7 @@ export default function useGetAccountBalance() {
                 balance = data
             }
         }
+
+        setAccountBalance(parseFloat(balance))
     }, [playerId, workingHosts])
 }

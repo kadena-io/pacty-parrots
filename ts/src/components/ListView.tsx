@@ -3,16 +3,18 @@ import { TodoType } from '../types'
 import { greenPrimaryColor } from '../styles/themeGreen'
 import { Fragment } from 'react'
 
+export interface ListViewColumn {
+    key: string,
+    label: string
+}
 // TODO: give a proper type to items
 interface Props {
-    isButton: boolean
+    isButton?: boolean
     containerStyle?: React.CSSProperties
-    headerBackgroundColor: string
-    columns: {
-        key: string
-        label: string
-    }[]
+    headerBackgroundColor?: string
+    columns: ListViewColumn[]
     items: TodoType[]
+    style?: React.CSSProperties
 }
 export default function ListView({
     isButton,
@@ -20,13 +22,14 @@ export default function ListView({
     headerBackgroundColor,
     columns,
     items,
+    style
 }: Props) {
     const theme = useTheme()
 
     return (
         <Box style={containerStyle}>
             <List
-                style={{ backgroundColor: 'white', paddingTop: 0, paddingBottom: 0 }}
+                style={{ ...style, backgroundColor: 'white', paddingTop: 0, paddingBottom: 0 }}
                 component="nav"
                 aria-label="main mailbox folders"
             >

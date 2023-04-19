@@ -22,7 +22,7 @@ function App() {
             >
                 {modalContent || <div>Modal</div>}
             </Modal>
-            <CssBaseline></CssBaseline>
+            <CssBaseline/>
         </ThemeProvider>
     )
 }

@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@mui/material/styles'
 import { greenPrimaryColor } from '../themeGreen'
 
 const style = {
@@ -8,7 +8,7 @@ const style = {
         alignItems: 'center',
         //zIndex: 99999
     }),
-    modalTitle: (props) => ({
+    modalTitle: () => ({
         backgroundColor: greenPrimaryColor,
         paddingLeft: 25,
         paddingBottom: 10,
@@ -29,7 +29,7 @@ const style = {
         paddingRight: 25,
         fontWeight: 'bold',
     }),
-    button: (props) => ({
+    button: () => ({
         backgroundColor: greenPrimaryColor,
         color: 'white',
         paddingLeft: 5,

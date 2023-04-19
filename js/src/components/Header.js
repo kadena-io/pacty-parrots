@@ -9,7 +9,7 @@ import Rules from "./Rules";
 import styles from "../styles/header/headerStyle";
 
 export default function Header({ title }) {
-  const classes = styles();
+  const classes = styles;
   const modalContext = useContext(ModalContext);
   const pactContext = useContext(PactContext);
 

@@ -112,7 +112,7 @@ const loadingParrots = [
 
 
 const HomePage = () => {
-  const classes = styles();
+  const classes = styles;
 
   const pactContext = useContext(PactContext);
 

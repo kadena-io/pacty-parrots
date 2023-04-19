@@ -26,7 +26,7 @@ export default function Header({ title }: Props) {
         loginButton: loginButtonClass,
         fab: fabClass,
         loginIconButton: loginIconButtonClass,
-    } = styles()
+    } = styles
 
     const [anchorEl, setAnchorEl] = useState(null)
 

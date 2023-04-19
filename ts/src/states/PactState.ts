@@ -15,6 +15,7 @@ interface PactState {
     requestKey: string
     payoutMatrix: TodoType
     workingHosts: TodoType[]
+    balance: number
     // setters
     setPlayerId: (playerId: string) => void
     setPlayerTable: (playerTable: TodoType) => void
@@ -26,6 +27,7 @@ interface PactState {
     setRequestKey: (requestKey: string) => void
     setPayoutMatrix: (payoutMatrix: TodoType) => void
     setWorkingHosts: (workingHosts: TodoType[]) => void
+    setAccountBalance: (balance: number) => void
 }
 
 export const usePactState = create<PactState>()(
@@ -41,6 +43,7 @@ export const usePactState = create<PactState>()(
             requestKey: '',
             payoutMatrix: {},
             workingHosts: [],
+            balance: 0,
             setPlayerId: (playerId: string) => set({ playerId }),
             setPlayerTable: (playerTable: TodoType) => set({ playerTable }),
             setRound: (round: number) => set({ round }),
@@ -51,6 +54,7 @@ export const usePactState = create<PactState>()(
             setRequestKey: (requestKey: string) => set({ requestKey }),
             setPayoutMatrix: (payoutMatrix: TodoType) => set({ payoutMatrix }),
             setWorkingHosts: (workingHosts: TodoType[]) => set({ workingHosts }),
+            setAccountBalance: (balance: number) => set({ balance }),
         }),
         {
             name: 'pact-state',

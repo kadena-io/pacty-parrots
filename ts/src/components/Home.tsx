@@ -1,7 +1,19 @@
 import { Box, Grid, Typography } from '@mui/material'
 import styles from '../styles/home/homeStyle'
+import { usePactState } from '../states/PactState'
+import { useEffect, useState } from 'react'
 
-export default function HomePage() {
+import BlueParrotPng from '../assets/result/large/blue.png'
+import YellowParrotPng from '../assets/result/large/yellow.png'
+import StartButton from './buttons/StartButton'
+import SpinAgainButton from './buttons/SpinAgainButton'
+import CashOutButton from './buttons/CashOutButton'
+import useGetAccountBalance from '../hooks/useGetAccountBalance'
+import ListView from './ListView'
+import Results from './Results'
+import { TodoType } from '../types'
+
+export default function Home() {
     const {
         playRoundButton: playRoundButtonClass,
         leaderboardTypography: leaderboardTypographyClass,
@@ -9,13 +21,66 @@ export default function HomePage() {
         gridDisplay: gridDisplayClass,
         typographyStyle: typographyStyleClass,
         leaderboardBox: leaderboardBoxClass,
-    } = styles()
+    } = styles
+
+    const playerTable = usePactState((state) => state.playerTable)
+    const playerId = usePactState((state) => state.playerId)
+    const accountBalance = usePactState((state) => state.balance)
+    const playersData = usePactState((state) => state.playersData)
+    const players = usePactState((state) => state.players)
+    
+    const [leftImage, setLeftImage] = useState(BlueParrotPng)
+  const [rightImage, setRightImage] = useState(YellowParrotPng)
+
+  const [spinText, setSpinText] = useState("")
+
+  const [startDis, setStartDis] = useState(true);
+  const [continueDis, setContinueDis] = useState(true);
+  const [endDis, setEndDis] = useState(true)
 
     const showContent = () => {
         // TODO
         return true
     }
 
+    const showStartButton = (startDis: boolean) => {
+
+    }
+    const showContEndButtons = (endDis: boolean) => {
+
+    }
+
+    const currentRound = usePactState(state => state.round) // -1
+
+    const showRoundPoints = () => {
+        //player is not registered
+        if (!playerTable) {
+          return "0"
+        }
+        else {
+            if (startDis && playerTable["rounds"][currentRound][2] === "open") {
+                return playerTable["rounds"][currentRound][1]["int"]
+            } else {
+                return '0'
+            }
+        }
+        
+      }
+
+      const sortPlayersByScore = (playersData: TodoType, players: TodoType) => {
+        const playersNew = playersData.slice();
+        playersNew.map((usr: TodoType, i: number) => {
+          usr['user'] = players[i];
+        })
+        const sorted = playersNew.sort(function(x: TodoType, y: TodoType) {
+          const x1 = x["coins-out"] - x["coins-in"];
+          const y1 = y["coins-out"] - y["coins-in"];
+          if (x1 > y1) { return -1 }
+          if (x1 < y1) { return 1 }
+          return 0;
+        });
+        return sorted;
+      }
     return (
         <Grid container direction="row">
             <Grid style={{ flex: 2 }}>
@@ -24,13 +89,13 @@ export default function HomePage() {
                         <Grid direction="row" className={gridDisplayClass}>
                             <Box className={typographyStyleClass}>
                                 <Typography>ROUNDS PLAYED:</Typography>
-                                <Typography variant="h4" className={scoreStyle}>
+                                <Typography variant="h4" className={scoreStyleClass}>
                                     {playerTable ? playerTable['rounds-played']['int'] : '0'}
                                 </Typography>
                             </Box>
                             <Box className={typographyStyleClass}>
                                 <Typography>TOTAL SCORE:</Typography>
-                                <Typography variant="h4" className={scoreStyle}>
+                                <Typography variant="h4" className={scoreStyleClass}>
                                     {playerTable
                                         ? playerTable['coins-out'] - playerTable['coins-in']
                                         : '0'}
@@ -42,19 +107,19 @@ export default function HomePage() {
                             style={{ marginTop: 0 }}
                             container
                             direction="column"
-                            justify="space-around"
+                            justifyContent="space-around"
                             alignItems="center"
                         >
                             <Grid
                                 style={{ marginTop: 80, marginBottom: 0 }}
                                 container
-                                justify="center"
+                                justifyContent="center"
                             ></Grid>
 
                             <Grid
                                 container
                                 direction="row"
-                                justify="space-around"
+                                justifyContent="space-around"
                                 alignItems="center"
                             >
                                 <img
@@ -69,19 +134,20 @@ export default function HomePage() {
                             </Grid>
                             <Typography
                                 variant="h4"
-                                className={scoreStyle}
+                                className={scoreStyleClass}
                                 style={{ marginTop: 20 }}
                             >
                                 {spinText}
                             </Typography>
                             <Box style={{ height: 50, marginTop: 50 }}>
-                                {showStartButton(startDis)}
-                                {showContEndButtons(endDis)}
+                                <StartButton display={startDis} />
+                                <SpinAgainButton display={endDis}/>
+                                <CashOutButton display={endDis} roundPoints={showRoundPoints()}/>
                             </Box>
                         </Grid>
                     </div>
                 ) : (
-                    <Typography variant="h4" className={scoreStyle} style={{ margin: 70 }}>
+                    <Typography variant="h4" className={scoreStyleClass} style={{ margin: 70 }}>
                         {playerId ? (
                             <div>connecting to an available node...</div>
                         ) : (
@@ -104,26 +170,26 @@ export default function HomePage() {
                     {playerId ? (
                         <Typography
                             variant="h6"
-                            className={leaderboardTypography}
+                            className={leaderboardTypographyClass}
                             style={{ marginTop: 3 }}
                         >
-                            account: {pactContext.playerId} | balance: {pactContext.accountBalance}
+                            account: {playerId} | balance: {accountBalance}
                         </Typography>
                     ) : (
                         <Typography
                             variant="h6"
-                            className={leaderboardTypography}
+                            className={leaderboardTypographyClass}
                             style={{ marginTop: 3 }}
                         >
                             no account!
                         </Typography>
                     )}
                     {showContent() ? (
-                        <Box className={leaderboardBox}>
-                            {showResults()}
+                        <Box className={leaderboardBoxClass}>
+                            <Results showRoundPoints={showRoundPoints}/>
                             <Typography
                                 variant="h4"
-                                className={leaderboardTypography}
+                                className={leaderboardTypographyClass}
                                 style={{ marginTop: 30 }}
                             >
                                 LEADERBOARD
@@ -135,10 +201,11 @@ export default function HomePage() {
                                     { key: 'score', label: 'Score' },
                                     { key: 'rounds', label: 'Rounds' },
                                 ]}
-                                items={sortPlayersByScore(playersData, players).map((usr, i) => ({
+                                items={sortPlayersByScore(playersData, players).map((usr: TodoType, i: number) => ({
                                     account: (
                                         <Typography
-                                            variant="h8"
+                                            //variant="h8"
+                                            variant="h6"
                                             style={{ color: 'black', fontWeight: 'bold' }}
                                         >
                                             {usr['user'].slice(0, 10)}
@@ -146,7 +213,8 @@ export default function HomePage() {
                                     ),
                                     score: (
                                         <Typography
-                                            variant="h8"
+                                            //variant="h8"
+                                            variant="h6"
                                             style={{ color: 'orange', fontWeight: 'bold' }}
                                         >
                                             {`${usr['coins-out'] - usr['coins-in']}`}
@@ -154,7 +222,8 @@ export default function HomePage() {
                                     ),
                                     rounds: (
                                         <Typography
-                                            variant="h8"
+                                            //variant="h8"
+                                            variant="h6"
                                             style={{ color: 'purple', fontWeight: 'bold' }}
                                         >
                                             {usr['rounds-played']['int']}
@@ -162,7 +231,8 @@ export default function HomePage() {
                                     ),
                                     rank: (
                                         <Typography
-                                            variant="h8"
+                                            //variant="h8"
+                                            variant="h6"
                                             style={{ color: 'blue', fontWeight: 'bold' }}
                                         >
                                             {`${i + 1}º`}

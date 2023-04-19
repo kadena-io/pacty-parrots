@@ -8,7 +8,7 @@ import LoginModal from "./LoginModal";
 import styles from "../styles/home/homeStyle";
 
 const Rules = (props) => {
-  const classes = styles();
+  const classes = styles;
 
   const pactContext = useContext(PactContext);
   const modalContext = useContext(ModalContext);

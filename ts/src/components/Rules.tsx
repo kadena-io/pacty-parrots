@@ -109,7 +109,7 @@ export default function Rules({}: Props) {
     const pactContext = {
         playerId: true,
     }
-    const { playRoundButton: playRoundButtonClass } = styles()
+    const { playRoundButton: playRoundButtonClass } = styles
 
     return (
         <div style={{ width: window.innerWidth }}>

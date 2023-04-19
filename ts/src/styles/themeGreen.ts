@@ -1,12 +1,11 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@mui/material/styles'
 import { fontStyleNHaas } from './fontConfig'
 
 export const greenPrimaryColor = '#19a33c'
 export const greenSecondaryColor = '#a6c600'
-const backgroundImageUrl = require('../assets/images/Background.png')
+import backgroundImageUrl from '../assets/images/Background.png'
 
-export const greenTheme = createMuiTheme({
-    name: 'greenTheme',
+export const greenTheme = createTheme({
     palette: {
         primary: {
             main: greenPrimaryColor,
@@ -28,8 +27,9 @@ export const greenTheme = createMuiTheme({
             '"Segoe UI Symbol"',
         ].join(','),
     },
-    overrides: {
+    components: {
         MuiCssBaseline: {
+            styleOverrides: {
             '@global': {
                 '@font-face': [fontStyleNHaas],
                 body: {
@@ -38,13 +38,17 @@ export const greenTheme = createMuiTheme({
                     backgroundSize: 'cover',
                 },
             },
+        }
         },
         MuiSelect: {
-            select: {
-                color: 'white',
-            },
+            styleOverrides: {
+                select: {
+                    color: 'white',
+                },
+            }
         },
         MuiMenuItem: {
+            styleOverrides: {
             root: {
                 '&$selected': {
                     backgroundColor: greenSecondaryColor,
@@ -54,22 +58,25 @@ export const greenTheme = createMuiTheme({
                 },
                 color: 'white',
                 // backgroundColor: 'red'
-            },
+            },}
         },
         MuiList: {
+            styleOverrides: {
             root: {
                 backgroundColor: greenPrimaryColor,
-            },
+            },}
         },
         MuiFormLabel: {
+            styleOverrides: {
             root: {
                 color: 'white',
                 '&$focused': {
                     color: 'white',
                 },
-            },
+            },}
         },
         MuiInput: {
+            styleOverrides: {
             underline: {
                 '&:before': {
                     borderBottomColor: 'white',
@@ -83,9 +90,10 @@ export const greenTheme = createMuiTheme({
             },
             input: {
                 color: 'white',
-            },
+            },}
         },
         MuiTextField: {
+            styleOverrides: {
             root: {
                 '&.blackInput .MuiFormLabel-root': {
                     color: 'black',
@@ -99,21 +107,27 @@ export const greenTheme = createMuiTheme({
                 '&.blackInput .MuiInput-underline:after': {
                     borderBottomColor: 'black',
                 },
-            },
+            },}
         },
         MuiChip: {
+            styleOverrides: {
             root: {
                 '&.headerChip': {
                     backgroundColor: 'white !important',
                 },
-            },
+            },}
         },
         MuiButtonBase: {
+            styleOverrides: {
             root: {
                 '& a': {
                     textDecoration: 'none',
                 },
-            },
+            },}
         },
     },
+    
+        
+        
+    
 })

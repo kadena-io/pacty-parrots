@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@mui/material/styles'
 import { greenPrimaryColor, greenSecondaryColor } from '../themeGreen'
 
 const styles = {

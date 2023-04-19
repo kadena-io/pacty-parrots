@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@mui/material/styles'
 
 const styles = {
     appBar: () => ({
