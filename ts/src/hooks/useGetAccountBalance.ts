@@ -7,6 +7,8 @@ export default function useGetAccountBalance() {
     const setAccountBalance = usePactState((state) => state.setAccountBalance)
 
     return useCallback(async () => {
+        if (!playerId) return
+
         const cmd = await FetchPactLocal({
             pactCode: `(coin.get-balance ${JSON.stringify(playerId)})`,
             keyPairs: dumKeyPair,

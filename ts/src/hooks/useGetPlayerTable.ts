@@ -6,6 +6,7 @@ export default function useGetPlayerTable() {
     const setPlayerTable = usePactState((state) => state.setPlayerTable)
     return useCallback(
         async (playerId: string) => {
+            if (!playerId) return
             const cmd = await FetchPactLocal({
                 pactCode: `(user.pacty-parrots.get-table ${JSON.stringify(playerId)})`,
                 keyPairs: dumKeyPair,
