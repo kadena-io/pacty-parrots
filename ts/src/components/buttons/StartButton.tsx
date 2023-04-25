@@ -2,8 +2,7 @@ import { Button } from '@mui/material'
 import styles from '../../styles/home/homeStyle'
 
 interface Props {
-    display: boolean
-    onClick?: () => void
+    onClick?: () => any
 }
 
 /* original code under onClick
@@ -25,21 +24,16 @@ interface Props {
               handlePlayRound("start")
               */
 
-export default function StartButton({ display, onClick }: Props) {
+export default function StartButton({ onClick }: Props) {
     const { playRoundButton } = styles
-    return display ? (
-        <div></div>
-    ) : (
-        <div>
-            <Button
-                variant="contained"
-                color="primary"
-                disabled={display}
-                style={{ ...playRoundButton, marginRight: 10 }}
-                onClick={onClick}
-            >
-                START NEW ROUND
-            </Button>
-        </div>
+    return (
+        <Button
+            variant="contained"
+            color="primary"
+            style={{ ...playRoundButton, marginRight: 10 }}
+            onClick={onClick}
+        >
+            START NEW ROUND
+        </Button>
     )
 }

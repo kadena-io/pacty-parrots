@@ -9,7 +9,6 @@ export const greenTheme = createTheme({
     palette: {
         primary: {
             main: greenPrimaryColor,
-            // contrastText: 'white'
         },
     },
     typography: {
@@ -30,13 +29,11 @@ export const greenTheme = createTheme({
     components: {
         MuiCssBaseline: {
             styleOverrides: {
-                '@global': {
-                    '@font-face': [fontStyleNHaas],
-                    body: {
-                        backgroundImage: `url(${backgroundImageUrl})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                    },
+                '@font-face': [fontStyleNHaas],
+                body: {
+                    backgroundImage: `url(${backgroundImageUrl})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
                 },
             },
         },
@@ -57,7 +54,6 @@ export const greenTheme = createTheme({
                         backgroundColor: greenSecondaryColor,
                     },
                     color: 'white',
-                    // backgroundColor: 'red'
                 },
             },
         },
@@ -118,7 +114,7 @@ export const greenTheme = createTheme({
             styleOverrides: {
                 root: {
                     '&.headerChip': {
-                        backgroundColor: 'white !important',
+                        backgroundColor: 'white',
                     },
                 },
             },

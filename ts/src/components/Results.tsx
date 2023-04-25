@@ -7,10 +7,11 @@ import { getParrotImage } from '../const'
 
 interface Props {
     showRoundPoints: () => number
+    getCurrentRound: () => number
 }
-export default function Results({ showRoundPoints }: Props) {
+export default function Results({ getCurrentRound, showRoundPoints }: Props) {
     const playerTable = usePactState((state) => state.playerTable)
-    const currentRound = usePactState((state) => state.round) // - 1
+    const currentRound = getCurrentRound()
     const { leaderboardTypography: leaderboardTypographyStyle, scoreStyle } = styles
     const payoutMatrix = usePactState((state) => state.payoutMatrix)
 
@@ -22,14 +23,14 @@ export default function Results({ showRoundPoints }: Props) {
         ) {
             const rounds = playerData.length !== 0 ? playerData['rounds'] : []
             const currRound = rounds[rounds.length - 1]
-            console.log(currRound)
             return currRound[0].slice(0, 30)
         } else {
             return []
         }
     }
 
-    return playerTable['rounds'][currentRound] &&
+    return payoutMatrix &&
+        playerTable['rounds'][currentRound] &&
         playerTable['rounds'][currentRound][2] === 'open' ? (
         <div>
             <Typography variant="h4" style={{ ...leaderboardTypographyStyle, marginBottom: 30 }}>
@@ -50,12 +51,13 @@ export default function Results({ showRoundPoints }: Props) {
                             </Typography>
                         ),
                         result: (
-                            <Grid direction="column">
+                            <Grid container direction="column">
                                 <img
+                                    alt="parrot"
                                     src={getParrotImage('small', bet[0])}
                                     style={{ marginRight: 20 }}
                                 />
-                                <img src={getParrotImage('small', bet[1])} />
+                                <img alt="parrot" src={getParrotImage('small', bet[1])} />
                             </Grid>
                         ),
                         points: (

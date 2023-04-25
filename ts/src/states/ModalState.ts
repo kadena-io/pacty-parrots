@@ -1,6 +1,5 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
 
 interface ModalState {
     isOpen: boolean
@@ -20,6 +19,7 @@ interface ModalState {
 export const useModalState = create<ModalState>()((set) => ({
     isOpen: false,
     content: null,
+    manualOpenRulesModal: false,
     openModal: (content: ReactElement) => set({ isOpen: true, content }),
     closeModal: () => set({ isOpen: false, content: null }),
 

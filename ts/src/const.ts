@@ -28,15 +28,12 @@ export const chainIds = [
     '19',
 ]
 
-export const createAPIHost = (network: string = 'api', chainId: string = '0') =>
-    `https://${network}.testnet.chainweb.com/chainweb/0.0/testnet04/chain/${chainId}/pact`
-/*
-export const createAPIHost = (network?: string, chainId?: string) => 'http://localhost:7010'*/
+export const createAPIHost = (network?: string, chainId?: string) =>
+    `https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/0/pact`
 export const devNetUrl = (network: string, chainId: string) =>
     `https://${network}.tn1.chainweb.com/chainweb/0.0/development/chain/${chainId}/pact`
 export const devNetHosts = ['us1', 'us2', 'us3']
 
-//enum LettersToParrots {
 export const LettersToParrots: Record<string, string> = {
     B: 'blue',
     G: 'green',
@@ -57,43 +54,7 @@ export const LettersToParrots: Record<string, string> = {
 export function getParrotImage(size: 'large' | 'small', letter: string) {
     return require(`./assets/result/${size}/${LettersToParrots[letter]}.png`)
 }
-/*
-export const imgMap = {
-    B: require('./assets/result/large/blue.png'),
-    G: require('./assets/result/large/green.png'),
-    P: require('./assets/result/large/purple.png'),
-    R: require('./assets/result/large/red.png'),
-    T: require('./assets/result/large/teal.png'),
-    Y: require('./assets/result/large/yellow.png'),
-    I: require('./assets/result/large/pirate.png'),
-    C: require('./assets/result/large/cop.png'),
-    M: require('./assets/result/large/mustache.png'),
-    H: require('./assets/result/large/sherlock.png'),
-    D: require('./assets/result/large/dealwithit.gif'),
-    S: require('./assets/result/large/spyparrot.png'),
-    K: require('./assets/result/large/keanu.png'),
-    A: require('./assets/result/large/cage.png'),
-    F: require('./assets/result/large/fieri.png'),
-}
-export const imgMapSmall = {
-    B: require('./assets/result/small/blue.png'),
-    G: require('./assets/result/small/green.png'),
-    P: require('./assets/result/small/purple.png'),
-    R: require('./assets/result/small/red.png'),
-    T: require('./assets/result/small/teal.png'),
-    Y: require('./assets/result/small/yellow.png'),
-    I: require('./assets/result/small/pirate.png'),
-    C: require('./assets/result/small/cop.png'),
-    M: require('./assets/result/small/mustache.png'),
-    H: require('./assets/result/small/sherlock.png'),
-    D: require('./assets/result/small/dealwithit.gif'),
-    S: require('./assets/result/small/spyparrot.png'),
-    K: require('./assets/result/small/keanu.png'),
-    A: require('./assets/result/small/cage.png'),
-    F: require('./assets/result/small/fieri.png'),
-}
 
-*/
 export const loadingParrots = [
     require('./assets/loading/60fpsparrot.gif'),
     require('./assets/loading/angryparrot.gif'),
@@ -165,21 +126,20 @@ export const modalStyle = {
 
 export const dumKeyPair = Pact.crypto.genKeyPair()
 
-export async function FetchPactLocal(cmd: TodoType, chainId?: string) {
+export async function FetchPactLocal(cmd: TodoType) {
     const { result } = await Pact.fetch.local(
         {
             ...cmd,
             meta: {
                 sender: dumKeyPair.publicKey,
                 gasLimit: 50000,
-                chainId: chainId || '0',
+                chainId: '0',
                 gasPrice: '1e-8',
                 ttl: 300,
                 creationTime: Date.now(),
-                //networkId: 0
             },
         },
-        createAPIHost('api', chainId)
+        createAPIHost('api', '0')
     )
     if (result.status === 'failure') {
         const { error } = result

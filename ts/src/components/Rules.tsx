@@ -1,10 +1,8 @@
-import { Box, Button, Dialog, Modal, Typography } from '@mui/material'
+import { Box, Button, Dialog, Typography } from '@mui/material'
 import { useModalState } from '../states/ModalState'
 import { usePactState } from '../states/PactState'
 import styles from '../styles/home/homeStyle'
 import ListView from './ListView'
-
-interface Props {}
 
 const info: {
     value: string
@@ -104,16 +102,13 @@ const info: {
     },
 ]
 
-export default function Rules({}: Props) {
-    // replace with actual values
+export default function Rules() {
     const playerId = usePactState((state) => state.playerId)
 
     const { playRoundButton: playRoundButtonStyle } = styles
 
     const isRulesModalOpen = useModalState((state) => state.isRulesModalOpen)
-    const openRulesModal = useModalState((state) => state.openRulesModal)
     const closeRulesModal = useModalState((state) => state.closeRulesModal)
-
     const openLoginModal = useModalState((state) => state.openLoginModal)
 
     return (
@@ -180,7 +175,7 @@ export default function Rules({}: Props) {
                         { key: 'payout', label: 'Payout' },
                     ]}
                     items={info.map((parrot, i) => ({
-                        parrot: <img src={parrot.parrot} />,
+                        parrot: <img alt="parrot" src={parrot.parrot} />,
                         name: (
                             <Typography
                                 variant="h6"
@@ -209,7 +204,7 @@ export default function Rules({}: Props) {
                         color="primary"
                         style={{ ...playRoundButtonStyle, marginBottom: 20 }}
                         onClick={() => {
-                            //props.anchorEl(null);
+                            closeRulesModal()
                         }}
                     >
                         GOT IT!
@@ -221,7 +216,6 @@ export default function Rules({}: Props) {
                         style={{ ...playRoundButtonStyle, marginBottom: 20 }}
                         onClick={() => {
                             openLoginModal()
-                            //modalContext.setModalOpen(<LoginModal />);
                         }}
                     >
                         ENTER ACCOUNT NAME

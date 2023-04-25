@@ -17,9 +17,9 @@ const styles: AppStyleType = {
     },
     chip: {
         flexFlow: 'row-reverse',
-        backgroundColor: 'white !important',
+        backgroundColor: 'white',
         ':hover': {
-            backgroundColor: 'white !important',
+            backgroundColor: 'white',
         },
         marginRight: '20px',
     },
@@ -33,11 +33,11 @@ const styles: AppStyleType = {
     },
 
     fab: {
-        paddingLeft: '30px !important',
-        paddingRight: '30px !important',
+        paddingLeft: '30px',
+        paddingRight: '30px',
         backgroundColor: 'white',
-        width: '100px',
-        height: '30px',
+        width: 'auto',
+        height: '40px',
     },
     loginButton: {
         paddingRight: '40px',

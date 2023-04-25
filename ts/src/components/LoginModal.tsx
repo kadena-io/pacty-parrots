@@ -5,14 +5,8 @@ import { useModalState } from '../states/ModalState'
 import { usePactState } from '../states/PactState'
 import useGetPlayerTable from '../hooks/useGetPlayerTable'
 
-// TODO: include modal open/close logic
-// game logic integration
-
-interface Props {}
-
-export default function LoginModal({}: Props) {
-    // give proper names
-    const [value, setValue] = useState('')
+export default function LoginModal() {
+    const [givenPlayerId, setGivenPlayerId] = useState('')
 
     const setPlayerId = usePactState((state) => state.setPlayerId)
 
@@ -28,13 +22,13 @@ export default function LoginModal({}: Props) {
 
     const onHandleClick = async (event: any) => {
         setButtonEnabled(false)
-        if (value !== '') {
-            //modalContext.setModalClose();
-            //pactContext.getPlayerTable();
-            await getPlayerTable()
-            setPlayerId(value)
-            //window.location.reload()
+        if (givenPlayerId !== '') {
+            await getPlayerTable(givenPlayerId)
+            setPlayerId(givenPlayerId)
+
+            window.location.reload()
         }
+        setButtonEnabled(true)
     }
 
     const isOpen = useModalState((state) => state.isLoginModalOpen)
@@ -52,14 +46,14 @@ export default function LoginModal({}: Props) {
                             placeholder="account"
                             margin="normal"
                             variant="outlined"
-                            value={value}
+                            value={givenPlayerId}
                             style={{
                                 marginTop: 20,
                                 marginBottom: 20,
                                 backgroundColor: 'white',
                             }}
                             onChange={(e: any) => {
-                                setValue(e.target.value)
+                                setGivenPlayerId(e.target.value)
                             }}
                         />
 

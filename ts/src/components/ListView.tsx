@@ -7,7 +7,6 @@ export interface ListViewColumn {
     key: string
     label: string
 }
-// TODO: give a proper type to items
 interface Props {
     isButton?: boolean
     containerStyle?: React.CSSProperties

@@ -15,11 +15,15 @@ import { TodoType } from '../types'
 import useGetAllPlayerTables from '../hooks/useGetAllPlayerTables'
 import useGetWorkingHosts from '../hooks/useGetWorkingHosts'
 import useGetPayoutMatrix from '../hooks/useGetPayoutMatrix'
-import { getParrotImage } from '../const'
+import { createAPIHost, getParrotImage, loadingParrots } from '../const'
+import Pact from 'pact-lang-api'
+import useStartRound from '../hooks/useStartRound'
+import useContinueRound from '../hooks/useContinueRound'
+import useGetPlayerTable from '../hooks/useGetPlayerTable'
+import useEndRound from '../hooks/useEndRound'
 
 export default function Home() {
     const {
-        playRoundButton: playRoundButtonStyle,
         leaderboardTypography: leaderboardTypographyStyle,
         scoreStyle,
         gridDisplay: gridDisplayStyle,
@@ -38,19 +42,25 @@ export default function Home() {
 
     const [spinText, setSpinText] = useState('')
 
-    const [startDis, setStartDis] = useState(true)
-    const [continueDis, setContinueDis] = useState(true)
+    const [startDis, setStartDis] = useState(false)
     const [endDis, setEndDis] = useState(true)
 
     const getWorkingHosts = useGetWorkingHosts()
     const getAllPlayersTable = useGetAllPlayerTables()
+    const continueRound = useContinueRound()
+    const getPlayerTable = useGetPlayerTable()
+    const getPayoutMatrix = useGetPayoutMatrix()
+    const getAccountBalance = useGetAccountBalance()
 
-    const payoutMatrix = usePactState((state) => state.payoutMatrix)
+    const setRequestKey = usePactState((state) => state.setRequestKey)
+
     async function fetchPlayerData() {
+        const currentRound = getCurrentRound()
+
         if (playerTable && playerTable.rounds[currentRound]) {
-            console.log('playerTable', playerTable)
             const len = playerTable['rounds'][currentRound][0].length - 1
             const pt = playerTable['rounds'][currentRound][0][len]
+
             const first = pt[0]
             const second = pt[1]
             setLeftImage(getParrotImage('large', first))
@@ -66,7 +76,6 @@ export default function Home() {
             }
             if (playerTable['rounds'][currentRound][2] === 'open') {
                 setEndDis(false)
-                setContinueDis(false)
             }
         } else {
             //supposed to only reach here if it is a new user
@@ -74,28 +83,46 @@ export default function Home() {
         }
     }
 
-    const getPayoutMatrix = useGetPayoutMatrix()
-
-    const getAccountBalance = useGetAccountBalance()
     useEffect(() => {
-        console.info('running effect')
+        const updateButtonStatus = () => {
+            const currentRound = getCurrentRound()
+            if (playerTable && playerTable.rounds[currentRound]) {
+                if (playerTable['rounds'][currentRound][2] === 'closed') {
+                    setStartDis(false)
+                }
+                if (playerTable['rounds'][currentRound][2] === 'open') {
+                    setEndDis(false)
+                }
+            }
+        }
+
+        updateButtonStatus()
+    }, [playerTable, getCurrentRound])
+    const [didMount, setDidMount] = useState(false)
+
+    useEffect(() => {
         const fn = async () => {
+            if (didMount) {
+                return
+            }
+            setDidMount(true)
             await getWorkingHosts()
-            console.info('ran getWorkingHosts')
-            // fetchReqKey()
+
+            await getPlayerTable(playerId)
+
             await getPayoutMatrix()
-            console.info('ran getPayoutMatrix')
+
             await getAllPlayersTable()
-            console.info('ran getAllPlayersTable')
+
             await fetchPlayerData()
-            console.info('ran fetchPlayerData')
+
             await getAccountBalance()
-            console.info('ran getAccountBalance')
-            // await pactContext.getAccountBalance()
         }
 
         fn()
-    }, [])
+        // eslint-disable-next-line
+    }, [setDidMount])
+
     const showContent = () => {
         if (playerId === '') {
             return true
@@ -107,24 +134,27 @@ export default function Home() {
         }
     }
 
-    const showStartButton = (startDis: boolean) => {}
-    const showContEndButtons = (endDis: boolean) => {}
-
-    const currentRound = usePactState((state) => state.round) // -1
+    // eslint-disable-next-line
+    function getCurrentRound() {
+        if (playerTable) {
+            return playerTable['rounds'].length - 1
+        } else {
+            return 0
+        }
+    }
 
     const showRoundPoints = () => {
-        //player is not registered
+        const currentRound = getCurrentRound()
         if (!playerTable) {
-            return '0'
+            return 0
         } else {
             if (
-                startDis &&
                 playerTable['rounds'][currentRound] &&
                 playerTable['rounds'][currentRound][2] === 'open'
             ) {
                 return playerTable['rounds'][currentRound][1]['int']
             } else {
-                return '0'
+                return 0
             }
         }
     }
@@ -132,7 +162,7 @@ export default function Home() {
     const sortPlayersByScore = (playersData: TodoType, players: TodoType) => {
         const playersNew = playersData.slice()
         playersNew.map((usr: TodoType, i: number) => {
-            usr['user'] = players[i]
+            return (usr['user'] = players[i])
         })
         const sorted = playersNew.sort(function (x: TodoType, y: TodoType) {
             const x1 = x['coins-out'] - x['coins-in']
@@ -147,12 +177,79 @@ export default function Home() {
         })
         return sorted
     }
+
+    const spinParrots = () => {
+        setInterval(() => {
+            setLeftImage(loadingParrots[Math.floor(Math.random() * loadingParrots.length)])
+            setRightImage(loadingParrots[Math.floor(Math.random() * loadingParrots.length)])
+        }, 1500)
+    }
+
+    const startRound = useStartRound()
+
+    const handlePlayRound = async (round: string) => {
+        setStartDis(true)
+        setEndDis(true)
+        let requestKey = ''
+        if (round === 'end') {
+            setLeftImage(require('../assets/loading_money.gif'))
+            setRightImage(require('../assets/loading_money.gif'))
+            setSpinText('money coming your way!')
+            requestKey = await endRound()
+        } else if (round === 'start') {
+            setLeftImage(loadingParrots[Math.floor(Math.random() * loadingParrots.length)])
+            setRightImage(loadingParrots[Math.floor(Math.random() * loadingParrots.length)])
+            spinParrots()
+            setSpinText('wait for your result...')
+            requestKey = await startRound()
+        } else if (round === 'cont') {
+            setLeftImage(loadingParrots[Math.floor(Math.random() * loadingParrots.length)])
+            setRightImage(loadingParrots[Math.floor(Math.random() * loadingParrots.length)])
+            spinParrots()
+            setSpinText('wait for your result...')
+            requestKey = await continueRound()
+        } else {
+            return
+        }
+
+        setRequestKey(requestKey)
+
+        await Pact.fetch.listen({ listen: requestKey }, createAPIHost())
+
+        setRequestKey('')
+        window.location.reload()
+    }
+
+    const onStartClick = async () => {
+        setSpinText('please sign tx in the wallet')
+        setStartDis(true)
+        setEndDis(true)
+        handlePlayRound('start')
+    }
+
+    const onContinueClick = async () => {
+        setSpinText('please sign tx in the wallet')
+        setStartDis(true)
+        setEndDis(true)
+
+        handlePlayRound('cont')
+    }
+
+    const endRound = useEndRound()
+
+    const onCashOutClick = async () => {
+        setStartDis(true)
+        setEndDis(true)
+        setSpinText('please sign cash out tx in the wallet')
+        handlePlayRound('end')
+    }
+
     return (
         <Grid container direction="row">
             <Grid style={{ flex: 2 }}>
                 {showContent() ? (
                     <div>
-                        <Grid direction="row" style={gridDisplayStyle}>
+                        <Grid direction="row" container style={gridDisplayStyle}>
                             <Box style={typographyStyle}>
                                 <Typography>ROUNDS PLAYED:</Typography>
                                 <Typography variant="h4" style={scoreStyle}>
@@ -188,23 +285,24 @@ export default function Home() {
                                 justifyContent="space-around"
                                 alignItems="center"
                             >
-                                <img
-                                    // src={require("../assets/result/large/mustache.png")}
-                                    src={leftImage}
-                                />
+                                <img alt="parrot" src={leftImage} />
 
-                                <img
-                                    // src={require("../assets/loading_long_big.gif")}
-                                    src={rightImage}
-                                />
+                                <img alt="parrot" src={rightImage} />
                             </Grid>
                             <Typography variant="h4" style={{ ...scoreStyle, marginTop: 20 }}>
                                 {spinText}
                             </Typography>
                             <Box style={{ height: 50, marginTop: 50 }}>
-                                <StartButton display={startDis} />
-                                <SpinAgainButton display={endDis} />
-                                <CashOutButton display={endDis} roundPoints={showRoundPoints()} />
+                                {!startDis && endDis && !spinText && (
+                                    <StartButton onClick={onStartClick} />
+                                )}
+                                {!endDis && <SpinAgainButton onClick={onContinueClick} />}
+                                {!endDis && (
+                                    <CashOutButton
+                                        onClick={onCashOutClick}
+                                        showRoundPoints={showRoundPoints}
+                                    />
+                                )}
                             </Box>
                         </Grid>
                     </div>
@@ -246,7 +344,10 @@ export default function Home() {
                     )}
                     {showContent() ? (
                         <Box style={leaderboardBoxStyle}>
-                            <Results showRoundPoints={showRoundPoints} />
+                            <Results
+                                getCurrentRound={getCurrentRound}
+                                showRoundPoints={showRoundPoints}
+                            />
                             <Typography
                                 variant="h4"
                                 style={{ ...leaderboardTypographyStyle, marginTop: 30 }}
@@ -264,7 +365,6 @@ export default function Home() {
                                     (usr: TodoType, i: number) => ({
                                         account: (
                                             <Typography
-                                                //variant="h8"
                                                 variant="h6"
                                                 style={{ color: 'black', fontWeight: 'bold' }}
                                             >
@@ -273,7 +373,6 @@ export default function Home() {
                                         ),
                                         score: (
                                             <Typography
-                                                //variant="h8"
                                                 variant="h6"
                                                 style={{ color: 'orange', fontWeight: 'bold' }}
                                             >
@@ -282,7 +381,6 @@ export default function Home() {
                                         ),
                                         rounds: (
                                             <Typography
-                                                //variant="h8"
                                                 variant="h6"
                                                 style={{ color: 'purple', fontWeight: 'bold' }}
                                             >
@@ -291,7 +389,6 @@ export default function Home() {
                                         ),
                                         rank: (
                                             <Typography
-                                                //variant="h8"
                                                 variant="h6"
                                                 style={{ color: 'blue', fontWeight: 'bold' }}
                                             >

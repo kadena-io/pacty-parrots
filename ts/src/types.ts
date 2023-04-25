@@ -10,3 +10,13 @@ export type PlayerTableType = {
     'coins-out': number
     'coins-in': number
 }
+
+export type PactNumber = TodoType
+
+export type PlayData = {
+    'coins-in': number
+    'coins-out': number
+    rounds: TodoType[]
+    'rounds-played': PactNumber
+    'total-rolls': PactNumber
+}

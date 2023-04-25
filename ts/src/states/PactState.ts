@@ -1,15 +1,14 @@
-import React, { ReactElement } from 'react'
 import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
-import { PlayerTableType, TodoType } from '../types'
+import { persist } from 'zustand/middleware'
+import { PlayData, PlayerTableType, TodoType } from '../types'
 
 interface PactState {
     // values
     playerId: string
     playerTable: PlayerTableType
     round: number
-    players: TodoType[]
-    playersData: TodoType[]
+    players: string[]
+    playersData: PlayData[]
     chainId: number
     hosts: number
     requestKey: string
@@ -20,8 +19,8 @@ interface PactState {
     setPlayerId: (playerId: string) => void
     setPlayerTable: (playerTable: PlayerTableType) => void
     setRound: (round: number) => void
-    setPlayers: (players: TodoType[]) => void
-    setPlayersData: (playersData: TodoType[]) => void
+    setPlayers: (players: string[]) => void
+    setPlayersData: (playersData: PlayData[]) => void
     setChainId: (chainId: number) => void
     setHosts: (hosts: number) => void
     setRequestKey: (requestKey: string) => void
@@ -53,7 +52,7 @@ export const usePactState = create<PactState>()(
             setPlayerTable: (playerTable: TodoType) => set({ playerTable }),
             setRound: (round: number) => set({ round }),
             setPlayers: (players: TodoType[]) => set({ players }),
-            setPlayersData: (playersData: TodoType[]) => set({ playersData }),
+            setPlayersData: (playersData: PlayData[]) => set({ playersData }),
             setChainId: (chainId: number) => set({ chainId }),
             setHosts: (hosts: number) => set({ hosts }),
             setRequestKey: (requestKey: string) => set({ requestKey }),

@@ -6,7 +6,6 @@ const style: AppStyleType = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        //zIndex: 99999
     },
     modalTitle: {
         backgroundColor: greenPrimaryColor,

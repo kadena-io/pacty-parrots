@@ -23,7 +23,7 @@ export default function useCheckSucces() {
                 window.location.reload()
             }
         } else {
-            console.log('pending')
+            console.info('pending')
         }
     }, [requestKey, workingHosts])
 }

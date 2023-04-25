@@ -18,17 +18,17 @@ const styles: AppStyleType = {
         textAlign: 'center',
         minWidth: 100,
         color: 'white',
-        fontWeight: 'bold !important',
+        fontWeight: 'bold',
     },
     enterId: {
-        fontWeight: 'bold !important',
+        fontWeight: 'bold',
         color: greenPrimaryColor,
         textAlign: 'center',
     },
     playRoundButton: {
-        fontWeight: 'bold !important',
+        fontWeight: 'bold',
         color: 'white',
-        padding: '10px 20px !important',
+        padding: '10px 20px',
     },
     enterAccountIdBox: {
         display: 'flex',
@@ -37,9 +37,9 @@ const styles: AppStyleType = {
     },
     leaderboardTypography: {
         color: greenPrimaryColor,
-        fontWeight: 'bold !important',
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: '20px !important',
+        marginBottom: '20px',
     },
     leaderboardBox: {
         marginBottom: 20,

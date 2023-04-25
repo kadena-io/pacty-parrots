@@ -1,21 +1,23 @@
 import { useCallback } from 'react'
 import { usePactState } from '../states/PactState'
-import Pact from 'pact-lang-api'
 import useGetAllPlayers from './useGetAllPlayers'
-import { createAPIHost, dumKeyPair, FetchPactLocal } from '../const'
+import { dumKeyPair, FetchPactLocal } from '../const'
 
 export default function useGetAllPlayerTables() {
     const getAllPlayers = useGetAllPlayers()
     const workingHosts = usePactState((state) => state.workingHosts)
+    let players = usePactState((state) => state.players)
     const setPlayersData = usePactState((state) => state.setPlayersData)
     return useCallback(async () => {
-        const players = await getAllPlayers()
+        if (players.length === 0) {
+            // eslint-disable-next-line
+            players = await getAllPlayers()
+        }
         const cmd = await FetchPactLocal({
             pactCode: `(map (user.pacty-parrots.get-table) ${JSON.stringify(players)})`,
             keyPairs: dumKeyPair,
         })
-        const data = await cmd.data
-        console.log({ cmd })
+        const { data } = await cmd
         setPlayersData(data)
-    }, [workingHosts])
+    }, [players, workingHosts])
 }

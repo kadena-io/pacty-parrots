@@ -1,10 +1,8 @@
-import { AppBar, Box, Fab, Popover, styled, Toolbar, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { AppBar, Box, Fab, Toolbar, Typography } from '@mui/material'
 
 import styles from '../styles/header/headerStyle'
 
 import kadenaLogo from '../assets/images/logo_green.png'
-import { useState } from 'react'
 import Rules from './Rules'
 import { usePactState } from '../states/PactState'
 import { useModalState } from '../states/ModalState'
@@ -13,14 +11,6 @@ import LoginModal from './LoginModal'
 interface Props {
     title: string
 }
-
-/*
-    TODO:
-        - add the popover game rules element
-        - login for open/close 
-        - read player id from state/context
-
-*/
 
 export default function Header({ title }: Props) {
     const {
@@ -34,21 +24,11 @@ export default function Header({ title }: Props) {
 
     const playerId = usePactState((state) => state.playerId)
 
-    const [anchorEl, setAnchorEl] = useState(null)
-
-    const isRulesModalOpen = useModalState((state) => state.isRulesModalOpen)
     const openRulesModal = useModalState((state) => state.openRulesModal)
-    const closeRulesModal = useModalState((state) => state.closeRulesModal)
 
+    const openLoginModal = useModalState((state) => state.openLoginModal)
     if (!playerId) {
         openRulesModal()
-    }
-
-    const handleClick = () => {
-        console.log('handleClick')
-    }
-    const handleClose = () => {
-        console.log('handleClose')
     }
 
     return (
@@ -67,9 +47,7 @@ export default function Header({ title }: Props) {
                             variant="extended"
                             size="medium"
                             style={fabStyle}
-                            onClick={() => {
-                                //modalContext.setModalOpen(<LoginModal/>)
-                            }}
+                            onClick={openLoginModal}
                         >
                             <Typography
                                 color="primary"
@@ -88,7 +66,9 @@ export default function Header({ title }: Props) {
                             variant="extended"
                             size="medium"
                             style={fabStyle}
-                            onClick={handleClick}
+                            onClick={() => {
+                                openRulesModal()
+                            }}
                         >
                             <Typography
                                 color="primary"
