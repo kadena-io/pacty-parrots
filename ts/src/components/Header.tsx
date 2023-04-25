@@ -3,10 +3,11 @@ import { AppBar, Box, Fab, Toolbar, Typography } from '@mui/material'
 import styles from '../styles/header/headerStyle'
 
 import kadenaLogo from '../assets/images/logo_green.png'
-import Rules from './Rules'
+import RulesModal from './RulesModal'
 import { usePactState } from '../states/PactState'
 import { useModalState } from '../states/ModalState'
 import LoginModal from './LoginModal'
+import CrossChainModal from './CrossChainModal'
 
 interface Props {
     title: string
@@ -83,7 +84,8 @@ export default function Header({ title }: Props) {
                     </Box>
 
                     <LoginModal />
-                    <Rules />
+                    <RulesModal />
+                    <CrossChainModal />
                 </Toolbar>
             </AppBar>
         </Box>

@@ -29,7 +29,7 @@ export const chainIds = [
 ]
 
 export const createAPIHost = (network?: string, chainId?: string) =>
-    `https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/0/pact`
+    `https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/${chainId || 0}/pact`
 export const devNetUrl = (network: string, chainId: string) =>
     `https://${network}.tn1.chainweb.com/chainweb/0.0/development/chain/${chainId}/pact`
 export const devNetHosts = ['us1', 'us2', 'us3']
@@ -126,20 +126,20 @@ export const modalStyle = {
 
 export const dumKeyPair = Pact.crypto.genKeyPair()
 
-export async function FetchPactLocal(cmd: TodoType) {
+export async function FetchPactLocal(cmd: TodoType, chainId?: string) {
     const { result } = await Pact.fetch.local(
         {
             ...cmd,
             meta: {
                 sender: dumKeyPair.publicKey,
                 gasLimit: 50000,
-                chainId: '0',
+                chainId: chainId || '0',
                 gasPrice: '1e-8',
                 ttl: 300,
                 creationTime: Date.now(),
             },
         },
-        createAPIHost('api', '0')
+        createAPIHost('api', chainId || '0')
     )
     if (result.status === 'failure') {
         const { error } = result

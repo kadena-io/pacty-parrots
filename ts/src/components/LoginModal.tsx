@@ -1,9 +1,10 @@
 import { Box, Dialog, Fab, Paper, TextField, Typography } from '@mui/material'
 import style from '../styles/modal/modalStyle'
 import { useState } from 'react'
-import { useModalState } from '../states/ModalState'
+import { MessageKeys, useModalState } from '../states/ModalState'
 import { usePactState } from '../states/PactState'
 import useGetPlayerTable from '../hooks/useGetPlayerTable'
+import useCheckCrossChainBalance from '../hooks/useCheckCrossChainBalance'
 
 export default function LoginModal() {
     const [givenPlayerId, setGivenPlayerId] = useState('')
@@ -19,10 +20,22 @@ export default function LoginModal() {
     } = style
 
     const [buttonEnabled, setButtonEnabled] = useState(true)
-
+    const checkCrossChainBalance = useCheckCrossChainBalance()
+    const openCrossChainModal = useModalState((state) => state.openCrossChainModal)
     const onHandleClick = async (event: any) => {
         setButtonEnabled(false)
         if (givenPlayerId !== '') {
+            const balances = await checkCrossChainBalance(givenPlayerId)
+            if (!balances) return
+            if (balances.length === 0) {
+                openCrossChainModal(MessageKeys.NoBalance)
+                return
+            }
+            if (balances[0].chainId !== 0) {
+                openCrossChainModal(MessageKeys.CrossChain)
+                return
+            }
+
             await getPlayerTable(givenPlayerId)
             setPlayerId(givenPlayerId)
 
@@ -53,6 +66,7 @@ export default function LoginModal() {
                                 backgroundColor: 'white',
                             }}
                             onChange={(e: any) => {
+                                setButtonEnabled(true)
                                 setGivenPlayerId(e.target.value)
                             }}
                         />

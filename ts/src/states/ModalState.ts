@@ -1,6 +1,11 @@
 import { ReactElement } from 'react'
 import { create } from 'zustand'
 
+export enum MessageKeys {
+    CrossChain = 'crossChain',
+    NoBalance = 'noBalance',
+}
+
 interface ModalState {
     isOpen: boolean
     content: ReactElement | null
@@ -14,6 +19,11 @@ interface ModalState {
     isRulesModalOpen: boolean
     openRulesModal: () => void
     closeRulesModal: () => void
+
+    isCrossChainModalOpen: boolean
+    openCrossChainModal: (messageKey: MessageKeys) => void
+    closeCrossChainModal: () => void
+    activeMessageKey: MessageKeys
 }
 
 export const useModalState = create<ModalState>()((set) => ({
@@ -30,4 +40,10 @@ export const useModalState = create<ModalState>()((set) => ({
     isRulesModalOpen: false,
     openRulesModal: () => set({ isRulesModalOpen: true }),
     closeRulesModal: () => set({ isRulesModalOpen: false }),
+
+    isCrossChainModalOpen: false,
+    openCrossChainModal: (messageKey: MessageKeys) =>
+        set({ activeMessageKey: messageKey, isCrossChainModalOpen: true }),
+    closeCrossChainModal: () => set({ isCrossChainModalOpen: false }),
+    activeMessageKey: MessageKeys.CrossChain,
 }))

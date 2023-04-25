@@ -102,7 +102,7 @@ const info: {
     },
 ]
 
-export default function Rules() {
+export default function RulesModal() {
     const playerId = usePactState((state) => state.playerId)
 
     const { playRoundButton: playRoundButtonStyle } = styles
