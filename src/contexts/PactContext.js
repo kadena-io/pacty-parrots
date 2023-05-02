@@ -20,7 +20,7 @@ export class PactStore extends React.Component {
     round: 1,
     players: [],
     playersData: [],
-    chainId: 0,
+    chainId: 1,
     hosts: 0,
     currentReqKey: "",
     payoutMatrix: {},
@@ -116,7 +116,7 @@ export class PactStore extends React.Component {
               ],
               sender: this.state.playerId,
               gasLimit: 10000,
-              chainId: "0",
+              chainId: "1",
               ttl: 28800,
               envData: {}
             }
@@ -161,7 +161,7 @@ export class PactStore extends React.Component {
             ],
             sender: this.state.playerId,
             gasLimit: 10000,
-            chainId: "0",
+            chainId: "1",
             ttl: 28800,
             envData: {}
           }
@@ -207,7 +207,7 @@ export class PactStore extends React.Component {
             ],
             sender: this.state.playerId,
             gasLimit: 10000,
-            chainId: "0",
+            chainId: "1",
             ttl: 28800,
             envData: {}
           }
