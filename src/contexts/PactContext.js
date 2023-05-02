@@ -107,7 +107,7 @@ export class PactStore extends React.Component {
         //   "0",
         //   100000
           const signCmd = {
-              pactCode: `(user.pacty-parrots-two.start-round ${JSON.stringify(this.state.playerId)})`,
+              pactCode: `(free.pacty-parrots-two.start-round ${JSON.stringify(this.state.playerId)})`,
               // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
               caps: [
                 Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
@@ -154,7 +154,7 @@ export class PactStore extends React.Component {
       //   const reqKey = await Pact.wallet.sendSigned(cmd, createAPIHost(this.state.workingHosts[0], "0"))
       try {
         const signCmd = {
-            pactCode: `(user.pacty-parrots-two.continue-round ${JSON.stringify(this.state.playerId)})`,
+            pactCode: `(free.pacty-parrots-two.continue-round ${JSON.stringify(this.state.playerId)})`,
             // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
             caps: [
               Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
@@ -199,7 +199,7 @@ export class PactStore extends React.Component {
       //   const reqKey = await Pact.wallet.sendSigned(cmd, createAPIHost(this.state.workingHosts[0], "0"))
       try {
         const signCmd = {
-            pactCode: `(user.pacty-parrots-two.end-round ${JSON.stringify(this.state.playerId)})`,
+            pactCode: `(free.pacty-parrots-two.end-round ${JSON.stringify(this.state.playerId)})`,
             // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
             caps: [
               Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
@@ -252,7 +252,7 @@ export class PactStore extends React.Component {
 
   getPlayerTable = async () => {
     const cmd = await Pact.fetch.local({
-      pactCode: `(user.pacty-parrots-two.get-table ${JSON.stringify(this.state.playerId)})`,
+      pactCode: `(free.pacty-parrots-two.get-table ${JSON.stringify(this.state.playerId)})`,
       keyPairs: dumKeyPair,
     }, createAPIHost(this.state.workingHosts[0], "0"))
     // .then(res => {
@@ -267,7 +267,7 @@ export class PactStore extends React.Component {
   getAllPlayerTables = async () => {
     const l = await this.getAllPlayers();
     const cmd = await Pact.fetch.local({
-      pactCode: `(map (user.pacty-parrots-two.get-table) ${JSON.stringify(l)})`,
+      pactCode: `(map (free.pacty-parrots-two.get-table) ${JSON.stringify(l)})`,
       keyPairs: dumKeyPair,
     }, createAPIHost(this.state.workingHosts[0], "0"))
     const data = await cmd.data;
