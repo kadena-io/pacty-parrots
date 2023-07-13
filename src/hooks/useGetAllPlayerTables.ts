@@ -14,7 +14,7 @@ export default function useGetAllPlayerTables() {
             players = await getAllPlayers()
         }
         const cmd = await FetchPactLocal({
-            pactCode: `(map (free.pacty-parrots.get-table) ${JSON.stringify(players)})`,
+            pactCode: `(map (user.pacty-parrots.get-table) ${JSON.stringify(players)})`,
             keyPairs: dumKeyPair,
         })
         const { data } = await cmd

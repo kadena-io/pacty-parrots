@@ -133,13 +133,13 @@ export async function FetchPactLocal(cmd: TodoType) {
             meta: {
                 sender: dumKeyPair.publicKey,
                 gasLimit: 50000,
-                chainId: '1',
+                chainId: '0',
                 gasPrice: '1e-8',
                 ttl: 300,
                 creationTime: Date.now(),
             },
         },
-        createAPIHost('api', '1')
+        createAPIHost('api', '0')
     )
     if (result.status === 'failure') {
         const { error } = result

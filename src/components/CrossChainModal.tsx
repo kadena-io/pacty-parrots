@@ -16,6 +16,7 @@ export default function CrossChainModal() {
 
     const messages = {
         crossChain: (
+            // todo: add the chain id where the funds are found at
             <Typography style={{ ...enterIdStyle, marginBottom: '50px' }} variant="h6">
                 It seems that your balance in the chain 0 is not enough to play the game, but your
                 balance on chain 1 is enough.

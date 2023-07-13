@@ -7,7 +7,7 @@ export default function useGetPayoutMatrix() {
     return useCallback(async () => {
         try {
             const cmd = await FetchPactLocal({
-                pactCode: `(free.pacty-parrots.get-payout-matrix)`,
+                pactCode: `(user.pacty-parrots.get-payout-matrix)`,
                 keyPairs: dumKeyPair,
             })
             const data = await cmd.data

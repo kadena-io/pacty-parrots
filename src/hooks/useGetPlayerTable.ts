@@ -9,7 +9,7 @@ export default function useGetPlayerTable() {
             try {
                 if (!playerId) return
                 const cmd = await FetchPactLocal({
-                    pactCode: `(free.pacty-parrots-two.get-table ${JSON.stringify(playerId)})`,
+                    pactCode: `(user.pacty-parrots.get-table ${JSON.stringify(playerId)})`,
                     keyPairs: dumKeyPair,
                 })
                 const data = await cmd.data
