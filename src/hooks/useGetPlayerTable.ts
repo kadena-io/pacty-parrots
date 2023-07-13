@@ -6,14 +6,26 @@ export default function useGetPlayerTable() {
     const setPlayerTable = usePactState((state) => state.setPlayerTable)
     return useCallback(
         async (playerId: string) => {
-            if (!playerId) return
-            const cmd = await FetchPactLocal({
-                pactCode: `(user.pacty-parrots.get-table ${JSON.stringify(playerId)})`,
-                keyPairs: dumKeyPair,
-            })
-            const data = await cmd.data
-            setPlayerTable(data)
-            return data
+            try {
+                if (!playerId) return
+                const cmd = await FetchPactLocal({
+                    pactCode: `(free.pacty-parrots-two.get-table ${JSON.stringify(playerId)})`,
+                    keyPairs: dumKeyPair,
+                })
+                const data = await cmd.data
+                setPlayerTable(data)
+                return data
+            } catch (e){
+                console.warn(e)
+                const emptyPlayerTable = {
+                    rounds: [],
+                    'rounds-played': [],
+                    'coins-out': 0,
+                    'coins-in': 0,
+                }
+                setPlayerTable(emptyPlayerTable)
+                return emptyPlayerTable
+            }
         },
         [setPlayerTable]
     )

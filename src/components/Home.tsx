@@ -120,7 +120,6 @@ export default function Home() {
         }
 
         fn()
-        // eslint-disable-next-line
     }, [setDidMount])
 
     const showContent = () => {
@@ -136,7 +135,7 @@ export default function Home() {
 
     // eslint-disable-next-line
     function getCurrentRound() {
-        if (playerTable) {
+        if (playerTable && playerTable['rounds'].length > 0) {
             return playerTable['rounds'].length - 1
         } else {
             return 0

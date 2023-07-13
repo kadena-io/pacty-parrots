@@ -14,7 +14,7 @@ export default function useCheckCrossChainBalance() {
                         pactCode: `(coin.get-balance ${JSON.stringify(playerId)})`,
                         keyPairs: dumKeyPair,
                     },
-                    i.toString()
+                    //i.toString()
                 )
             )
         }
@@ -32,7 +32,7 @@ export default function useCheckCrossChainBalance() {
                 })
             }
         })
-
+        console.log({balances})
         return balances
     }, [])
 }

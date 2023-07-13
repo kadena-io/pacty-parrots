@@ -6,7 +6,7 @@ export default function useGetAllPlayers() {
     const setPlayers = usePactState((state) => state.setPlayers)
     return useCallback(async () => {
         const cmd = await FetchPactLocal({
-            pactCode: '(user.pacty-parrots.get-users)',
+            pactCode: '(free.pacty-parrots.get-users)',
         })
         const data = await cmd.data
         setPlayers(data)

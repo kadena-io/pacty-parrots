@@ -25,6 +25,7 @@ export default function LoginModal() {
     const onHandleClick = async (event: any) => {
         setButtonEnabled(false)
         if (givenPlayerId !== '') {
+            /*
             const balances = await checkCrossChainBalance(givenPlayerId)
             if (!balances) return
             if (balances.length === 0) {
@@ -34,7 +35,7 @@ export default function LoginModal() {
             if (balances[0].chainId !== 0) {
                 openCrossChainModal(MessageKeys.CrossChain)
                 return
-            }
+            }*/
 
             await getPlayerTable(givenPlayerId)
             setPlayerId(givenPlayerId)

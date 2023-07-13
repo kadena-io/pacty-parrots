@@ -42,7 +42,7 @@ export const usePactState = create<PactState>()(
             round: 0,
             players: [],
             playersData: [],
-            chainId: 0,
+            chainId: 1,
             hosts: 0,
             requestKey: '',
             payoutMatrix: {},
