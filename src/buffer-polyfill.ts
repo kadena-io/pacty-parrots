@@ -1,3 +1,3 @@
-import * as BufferPolyfill from 'buffer'
+import * as BufferPolyfill from "buffer";
 
-window.Buffer = window.Buffer || BufferPolyfill.Buffer
+window.Buffer = window.Buffer || BufferPolyfill.Buffer;

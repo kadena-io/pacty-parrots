@@ -1,8 +1,8 @@
-import { Button } from '@mui/material'
-import styles from '../../styles/home/homeStyle'
+import { Button } from "@mui/material";
+import styles from "../../styles/home/homeStyle";
 
 interface Props {
-    onClick?: () => any
+  onClick?: () => any;
 }
 
 /* original code under onClick
@@ -25,15 +25,15 @@ interface Props {
               */
 
 export default function StartButton({ onClick }: Props) {
-    const { playRoundButton } = styles
-    return (
-        <Button
-            variant="contained"
-            color="primary"
-            style={{ ...playRoundButton, marginRight: 10 }}
-            onClick={onClick}
-        >
-            START NEW ROUND
-        </Button>
-    )
+  const { playRoundButton } = styles;
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      style={{ ...playRoundButton, marginRight: 10 }}
+      onClick={onClick}
+    >
+      START NEW ROUND
+    </Button>
+  );
 }
