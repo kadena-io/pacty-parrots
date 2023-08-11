@@ -1,17 +1,19 @@
-import { useCallback } from 'react'
-import { dumKeyPair, FetchPactLocal } from '../const'
-import { usePactState } from '../states/PactState'
+import { useCallback } from "react";
+import { FetchPactLocal } from "../const";
+import { usePactState } from "../states/PactState";
 
 export default function useGetPayoutMatrix() {
-    const setPayoutMatrix = usePactState((state) => state.setPayoutMatrix)
-    return useCallback(async () => {
-        const cmd = await FetchPactLocal({
-            pactCode: `(user.pacty-parrots.get-payout-matrix)`,
-            keyPairs: dumKeyPair,
-        })
-        const data = await cmd.data
+  const setPayoutMatrix = usePactState((state) => state.setPayoutMatrix);
+  return useCallback(async () => {
+    try {
+      const data = await FetchPactLocal("get-payout-matrix");
 
-        setPayoutMatrix(data)
-        return data
-    }, [setPayoutMatrix])
+      setPayoutMatrix(data);
+      return data;
+    } catch (e) {
+      console.warn(e);
+      setPayoutMatrix({});
+      return {};
+    }
+  }, [setPayoutMatrix]);
 }

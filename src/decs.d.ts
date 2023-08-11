@@ -1,2 +1,2 @@
-declare module 'pact-lang-api'
-declare module '*.woff'
+declare module "pact-lang-api";
+declare module "*.woff";
